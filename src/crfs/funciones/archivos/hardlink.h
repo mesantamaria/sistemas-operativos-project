@@ -1,3 +1,3 @@
 #pragma once
 
-void cr_bitmap();
+//void cr_bitmap();

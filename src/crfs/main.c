@@ -2,14 +2,9 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
-#include <sys/timeb.h>
-#include <pthread.h>
-#include "files.h"
-#include "map.h"
-#include "reduce.h"
-#include "mapreduce.h"
 #include "estructuras.h"
-#include "others.h"
+
+
 
 
 
