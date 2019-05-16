@@ -26,8 +26,8 @@ int main(int argc, char *argv[])
 	
 
 	cr_mount(disk);
-	cr_ls("");
-
+	cr_ls("memes");
+	
 	// Destruimos todo
 	free(buffer);
 	fclose(data);
