@@ -6,6 +6,7 @@
 #include "cr_API.h"
 #include "funciones/generales/mount.h"
 #include "funciones/generales/ls.h"
+#include "funciones/generales/exists.h"
 
 
 
