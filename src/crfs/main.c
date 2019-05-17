@@ -7,6 +7,7 @@
 #include "funciones/generales/mount.h"
 #include "funciones/generales/ls.h"
 #include "funciones/generales/exists.h"
+#include "funciones/generales/bitmap.h"
 
 
 
@@ -28,6 +29,7 @@ int main(int argc, char *argv[])
 
 	cr_mount(disk);
 	cr_ls("memes");
+	// cr_bitmap();  // Imprime el bitmap
 
 	// Destruimos todo
 	free(buffer);
