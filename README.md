@@ -18,7 +18,7 @@
 	- [x] `ls`
 	- [ ] `mkdir`
 - [ ] Archivos
-	- [ ] `open`
+	- [ ] `open` *(Carreño)*
 	- [ ] `read`
 	- [ ] `write`
 	- [ ] `close`
