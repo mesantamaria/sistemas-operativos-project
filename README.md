@@ -4,7 +4,7 @@
 
 | # | Nombre                 | N° Alumno |
 |---|------------------------|-----------|
-| 1 | Sebastián Carreño      |           |
+| 1 | Sebastián Carreño      | 15639746  |
 | 2 | Ignacio Castañeda      | 15634728  |
 | 3 | Andres Jahr            |           |
 | 4 | Maximiliano Santamaria |           |
@@ -18,7 +18,7 @@
 	- [x] `ls`
 	- [ ] `mkdir`
 - [ ] Archivos
-	- [ ] `open` *(Carreño)*
+	- [1] `open`
 	- [ ] `read`
 	- [ ] `write`
 	- [ ] `close`
