@@ -1,8 +1,43 @@
-# Proyecto Sistemas Operativos
+# Proyecto Sistemas Operativos - SIGKILLERS
 
-Repositorio del Proyecto de Sistemas Operativos y Redes 2019-1.
+## Integrantes
 
-Por favor, incluir aquí:
+| # | Nombre                 | N° Alumno |
+|---|------------------------|-----------|
+| 1 | Sebastián Carreño      |           |
+| 2 | Ignacio Castañeda      | 15634728  |
+| 3 | Andres Jahr            |           |
+| 4 | Maximiliano Santamaria |           |
 
-* Integrantes del equipo.
-* Supuestos adicionales que hayan tomado en consideración.
+## TODO
+
+- [ ] Generales
+	- [ ] `mount`
+	- [x] `bitmap`
+	- [x] `exists`
+	- [x] `ls`
+	- [ ] `mkdir`
+- [ ] Archivos
+	- [ ] `open`
+	- [ ] `read`
+	- [ ] `write`
+	- [ ] `close`
+	- [ ] `rm`
+	- [ ] `hardlink`
+	- [ ] `unload`
+	- [ ] `load`
+- [ ] Archivos de prueba
+	- [ ] `mount`
+	- [ ] `bitmap`
+	- [ ] `exists`
+	- [ ] `ls`
+	- [ ] `mkdir`
+	- [ ] `open`
+	- [ ] `read`
+	- [ ] `write`
+	- [ ] `close`
+	- [ ] `rm`
+	- [ ] `hardlink`
+	- [ ] `unload`
+	- [ ] `load`
+
