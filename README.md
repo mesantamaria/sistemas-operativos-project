@@ -2,12 +2,12 @@
 
 ## Integrantes
 
-| # | Nombre                 | N° Alumno |
-|---|------------------------|-----------|
-| 1 | Sebastián Carreño      |           |
-| 2 | Ignacio Castañeda      | 15634728  |
-| 3 | Andres Jahr            |           |
-| 4 | Maximiliano Santamaria |           |
+| # | Nombre                 | N° Alumno | Mail UC                                       |
+|---|------------------------|-----------|-----------------------------------------------|
+| 1 | Sebastián Carreño      |           |                                               |
+| 2 | Ignacio Castañeda      | 15634728  | [ifcastaneda@uc.cl](mailto:ifcastaneda@uc.cl) |
+| 3 | Andres Jahr            |           |                                               |
+| 4 | Maximiliano Santamaria |           |                                               |
 
 ## TODO
 
@@ -18,7 +18,7 @@
 	- [x] `ls`
 	- [ ] `mkdir`
 - [ ] Archivos
-	- [ ] `open` *(Carreño)*
+	- [ ] `open` **(Carreño)**
 	- [ ] `read`
 	- [ ] `write`
 	- [ ] `close`
