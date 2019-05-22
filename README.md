@@ -10,7 +10,7 @@
 | 4 | Maximiliano Santamaria |           |                                               |
 
 ## TODO
-∫
+
 - [ ] Generales
 	- [ ] `mount`
 	- [x] `bitmap`
