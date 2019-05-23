@@ -47,13 +47,13 @@ int main(int argc, char *argv[])
 	}
 	printf("Exists freed: %i\n", cr_exists("/memes/freed.jpg"));
 	cr_ls("memes");
-	// cr_bitmap();  // Imprime el bitmap
 
 
 	printf("------- rm -------\n");
-	crFILE* cr_file_test = cr_open("/test.txt", 'w');
+	//cr_bitmap();  // Imprime el bitmap
 	printf("Exists /free.jpg: %i\n", cr_exists("/memes/free.jpg"));
-	cr_rm("/fred.jpg");
+	cr_rm("/memes/free.jpg");
+	//cr_bitmap();  // Imprime el bitmap
 	printf("Exists /free.jpg: %i\n", cr_exists("/memes/free.jpg"));
 
 	// Destruimos todo

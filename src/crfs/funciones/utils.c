@@ -64,6 +64,7 @@ void* get_pointer_from_path(char* path, FILE* data) {
 			break;
 		}
 	}
+	free(buffer);
 	return pointer;
 }
 
