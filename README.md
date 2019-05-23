@@ -11,13 +11,13 @@
 
 ## TODO
 
-- [ ] Regalados
+  - [x] Estructura de Sistema de Archivos
 	- [x] Directorio 0.1
 	- [x] Indice 0.1
 	- [x] Indirecto 0.1
 	- [x] Datos 0.1
 	- [x] Bitmap 0.1
-- [ ] Generales
+- [x] Generales
 	- [x] `mount` 0.2
 	- [x] `bitmap` 0.2
 	- [x] `exists` 0.2
@@ -29,8 +29,8 @@
 	- [ ] `write` **(Jahr)**
 	- [x] `close` 0.4
 	- [x] `rm` 0.4 **(Nacho)**
-	- [ ] `hardlink` 0.4
-	- [ ] `unload`
+	- [x] `hardlink` 0.4
+	- [x] `unload`
 	- [ ] `load`
 - [ ] Archivos de prueba
 	- [ ] `mount`

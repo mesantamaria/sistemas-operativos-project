@@ -12,6 +12,7 @@
 #include "funciones/generales/mkdir.h"
 #include "funciones/archivos/open.h"
 #include "funciones/archivos/close.h"
+#include "funciones/archivos/hardlink.h"
 #include "funciones/archivos/rm.h"
 #include "funciones/utils.h"
 #include "funciones/archivos/read.h"
@@ -102,6 +103,10 @@ int main(int argc, char *argv[])
 		printf("------- memes/pizza -------\n");
 		cr_ls("/memes/pizza");
 		crFILE* cr_file_4 = cr_open("/memes/pizza/gol.txt", 'w');
+
+		cr_hardlink("/memes/fortress.jpg", "/memes/pizza");
+		printf("------- memes/pizza -------\n");
+		cr_ls("/memes/pizza");
 
 
 
