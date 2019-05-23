@@ -9,7 +9,9 @@
 #include "funciones/generales/ls.h"
 #include "funciones/generales/exists.h"
 #include "funciones/generales/bitmap.h"
+#include "funciones/generales/mkdir.h"
 #include "funciones/archivos/open.h"
+#include "funciones/archivos/close.h"
 #include "funciones/archivos/rm.h"
 #include "funciones/utils.h"
 #include "funciones/archivos/read.h"
@@ -25,7 +27,7 @@ int main(int argc, char *argv[])
 	}
 
 	// Obtenemos el nombre del archivo del disco.
-	int mode = argv[2];
+	int mode = atoi(argv[2]);
 	char* disk = argv[1];	
 	FILE* data = fopen( "simdiskfilled-old.bin", "rb" );
 	unsigned char *buffer = malloc(sizeof(unsigned char) * 32 );
@@ -41,6 +43,9 @@ int main(int argc, char *argv[])
 	// cr_bitmap();  // Imprime el bitmap
 	
 	//cr_ls("memes");
+
+
+
 	if (mode == 3)
 	{	
 		printf("------- rm -------\n");
@@ -63,6 +68,41 @@ int main(int argc, char *argv[])
 		printf("%d\n", (unsigned int)buffer2[0] * 256 * 256 * 256 + (unsigned int)buffer2[1] * 256 * 256 + (unsigned int)buffer2[2] * 256 + (unsigned int)buffer2[3]);
 		free(buffer2);
 		free(cr_file);
+
+	}
+
+	else if (mode == 1)
+	{
+		printf("------- memes -------\n");
+		cr_ls("/memes");
+		crFILE* cr_file = cr_open("/memes/for.jpg", 'r');
+		printf("------- memes -------\n");
+		cr_ls("/memes");
+		crFILE* cr_file_1 = cr_open("/memes/fortress.jpg", 'w');
+		printf("------- memes -------\n");
+		cr_ls("/memes");
+		cr_mkdir("/memes/pizza");
+		printf("------- memes -------\n");
+		cr_ls("/memes");
+		cr_mkdir("/memes/pizza");
+		printf("------- memes -------\n");
+		cr_ls("/memes");
+		crFILE* cr_file_2 = cr_open("/memes/pizza/gol.txt", 'w');
+		printf("------- memes/pizza -------\n");
+		cr_ls("/memes/pizza");
+		cr_rm("/memes/pizza/gol.txt");
+		printf("------- memes/pizza -------\n");
+		cr_ls("/memes/pizza");
+		crFILE* cr_file_3 = cr_open("/memes/pizza/gol.txt", 'w');
+		printf("------- memes/pizza -------\n");
+		cr_ls("/memes/pizza");
+
+
+
+		cr_close(cr_file);
+		cr_close(cr_file_1);
+		cr_close(cr_file_2);
+		cr_close(cr_file_3);
 
 	}
 
