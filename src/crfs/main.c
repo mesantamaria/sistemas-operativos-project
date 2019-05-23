@@ -10,6 +10,7 @@
 #include "funciones/generales/exists.h"
 #include "funciones/generales/bitmap.h"
 #include "funciones/archivos/open.h"
+#include "funciones/archivos/rm.h"
 #include "funciones/archivos/read.h"
 
 
@@ -28,24 +29,12 @@ int main(int argc, char *argv[])
 	unsigned char *buffer = malloc(sizeof(unsigned char) * 32 );
 	fseek(data, 0, SEEK_SET);  // inicio
 	fread(buffer, sizeof(unsigned char), 32, data);
-	
+
 
 	cr_mount(disk);
 	//cr_ls("memes");
 	//printf("Bitmap:\n");
-	//cr_bitmap();
-	printf("Exists free: %i\n", cr_exists("/memes/free.jpg"));
-	printf("Exists freed: %i\n", cr_exists("/memes/freed.jpg"));
-	char* stri = "/memes/freed.jpg";
-	//crFILE* cr_file = cr_open(stri, 'w');
-	//if (cr_file != NULL)
-	//{
-	//	printf("Pointer: %u\n", cr_file -> pointer);
-	//	printf("Mode: %c\n", cr_file -> mode);
 
-	//	free(cr_file);
-	//}
-	printf("Exists freed: %i\n", cr_exists("/memes/freed.jpg"));
 	//cr_ls("memes");
 	// cr_bitmap();  // Imprime el bitmap
 	crFILE* cr_file = cr_open("/thanos/thanos.gif", 'r');
@@ -59,6 +48,11 @@ int main(int argc, char *argv[])
 	printf("%d\n", (unsigned int)buffer2[0] * 256 * 256 * 256 + (unsigned int)buffer2[1] * 256 * 256 + (unsigned int)buffer2[2] * 256 + (unsigned int)buffer2[3]);
 	free(buffer2);
 	free(cr_file);
+
+	cr_ls("memes");
+
+
+
 	// Destruimos todo
 	free(buffer);
 	fclose(data);
