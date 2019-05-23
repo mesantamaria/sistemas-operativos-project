@@ -12,11 +12,11 @@
 ## TODO
 
 - [ ] Generales
-	- [ ] `mount`
+	- [x] `mount`
 	- [x] `bitmap`
 	- [x] `exists`
 	- [x] `ls`
-	- [ ] `mkdir`
+	- [ ] `mkdir` **(Nacho)**
 - [ ] Archivos
 	- [ ] `open` **(Carreño)**
 	- [ ] `read`
