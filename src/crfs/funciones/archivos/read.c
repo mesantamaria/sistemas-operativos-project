@@ -17,12 +17,12 @@ int cr_read(crFILE* file_desc, void* buffer, int nbytes) {
 	bool indirect_block = false;
 	int byte_in_block = file_desc -> bytes_leidos % 2048;
 	int posicion_buffer = 0;
-	if (block >= 500)
+	if (block >= 501)  // Datos parten desde bloque 1 al 500
 	{	
 		indirect_block = true;
-		block -= 500;
+		block -= 501;
 	}
-	if (indirect_block && (block > 10 * 2048 / 4))
+	if (indirect_block && (block >= 10 * 2048 / 4))
 	{
 		printf("Se superó el espacio máximo\n");
 		free(buffer2);
@@ -30,6 +30,7 @@ int cr_read(crFILE* file_desc, void* buffer, int nbytes) {
 		fclose(data);
 		return 0;
 	}
+	int tamano = 0;
 	int contador = 0;
 	int indirecto = 0;
 	int offset_indirecto = 0;
@@ -49,7 +50,8 @@ int cr_read(crFILE* file_desc, void* buffer, int nbytes) {
 			}
 			else
 			{	// caso bloque indirecto, doble direccionamiento
-				if (block > 10 * 2048 / 4)
+				
+				if (block >= 10 * 2048 / 4)
 				{
 					printf("Se superó el espacio máximo\n");
 					file_desc -> bytes_leidos += contador;
@@ -85,15 +87,23 @@ int cr_read(crFILE* file_desc, void* buffer, int nbytes) {
 			block ++;
 			byte_in_block = 0;
 			posicion_buffer += 2048 - byte_in_block;
-			if (block >= 500)
+			if (block >= 501 && !indirect_block)
 			{
 				indirect_block = true;
-				block -= 500;
+				block -= 501;
+			}
+		}
+		if (block == 1 && !indirect_block){ 
+			tamano = (unsigned int)&buffer[0] * 256 * 256 * 256 + (unsigned int)&buffer[1] * 256 * 256
+			+ (unsigned int)&buffer[2] * 256 + (unsigned int)&buffer[3];
+			if (tamano < bytes_por_leer)  // CASO EN QUE SE QUIEREN LEER MAS BYTES DE LOS QUE HAY
+			{
+				bytes_por_leer = tamano;
 			}
 		}
 	}
 
-
+	//printf("%d\n", contador);
 	file_desc -> bytes_leidos += contador;
 	free(buffer2);
 	free(buffer_bloque_indirecto);

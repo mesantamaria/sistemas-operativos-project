@@ -68,6 +68,9 @@ int main(int argc, char *argv[])
 		cr_unload("/SSBS.mp3", "cancion.mp3");
 		//cr_unload("/thanos/thanos.gif", "thanos.gif");
 		//cr_unload("/germy.txt", "germy.txt");
+		//cr_unload("/Program in C.mkv", "Program in C.mkv");
+		//cr_unload("/free.jpg", "free.jpg");
+
 	}
 	else if (mode == 1)
 	{
