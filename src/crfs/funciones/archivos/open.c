@@ -37,7 +37,7 @@ crFILE* cr_open(char* route, char mode) {
 	unsigned int pointer = 0;
 	char* folder = strtok(dir_route, "/");
 	bool found = false;
-	
+
 	while(folder != NULL){
 		found = false;
 		for(int i = 0; i < 64; i++) {  // 2048 / 32  = 64
