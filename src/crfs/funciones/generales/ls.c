@@ -9,7 +9,7 @@
 void cr_ls(char* path) {
 	FILE* data = fopen(disk_path, "rb" );
 	unsigned char *buffer = malloc(sizeof( unsigned char ) * 32);
-	char copy[28];
+	char copy[strlen(path)];
 	strcpy(copy, path);
 	unsigned int pointer = 0;
 	char* folder = strtok(copy, "/");
@@ -44,7 +44,6 @@ void cr_ls(char* path) {
 			printf("%s\n", buffer + 1);
 		}
 	};
-
 	free(buffer);
 	fclose(data);
 }
