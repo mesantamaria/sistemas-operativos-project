@@ -25,6 +25,7 @@ int main(int argc, char *argv[])
 	}
 
 	// Obtenemos el nombre del archivo del disco.
+	int mode = argv[2];
 	char* disk = argv[1];
 	FILE* data = fopen( "simdiskfilled-old.bin", "rb" );
 	unsigned char *buffer = malloc(sizeof(unsigned char) * 32 );
@@ -38,24 +39,33 @@ int main(int argc, char *argv[])
 
 	//cr_ls("memes");
 	// cr_bitmap();  // Imprime el bitmap
-	crFILE* cr_file = cr_open("/thanos/thanos.gif", 'r');
-	unsigned char *buffer2 = malloc(sizeof(unsigned char) * 2048 * 9 );
-	//fseek(data, cr_file -> pointer, SEEK_SET);
-	//fread(buffer2, sizeof(unsigned char), 2048, data);
-	//printf("%d\n", (unsigned int)buffer2[8] * 256 * 256 * 256 + (unsigned int)buffer2[9] * 256 * 256 + (unsigned int)buffer2[10] * 256 + (unsigned int)buffer2[11]);
-	int a = cr_read(cr_file, buffer2, 2048);
-	int b = cr_read(cr_file, &buffer2[2048], 2048);
-	printf("%d %d\n", a, b);
-	printf("%d\n", (unsigned int)buffer2[0] * 256 * 256 * 256 + (unsigned int)buffer2[1] * 256 * 256 + (unsigned int)buffer2[2] * 256 + (unsigned int)buffer2[3]);
-	free(buffer2);
-	free(cr_file);
 
 	//cr_ls("memes");
+	if (mode == 3)
+	{
+		printf("------- rm -------\n");
+		cr_bitmap();  // Imprime el bitmap
+		printf("Exists /free.jpg: %i\n", cr_exists("/memes/free.jpg"));
+		cr_rm("/memes/free.jpg");
+		cr_bitmap();  // Imprime el bitmap
+		printf("Exists /free.jpg: %i\n", cr_exists("/memes/free.jpg"));
+	}
+	else if (mode == 4)
+	{
+		crFILE* cr_file = cr_open("/thanos/thanos.gif", 'r');
+		unsigned char *buffer2 = malloc(sizeof(unsigned char) * 2048 * 9 );
+		//fseek(data, cr_file -> pointer, SEEK_SET);
+		//fread(buffer2, sizeof(unsigned char), 2048, data);
+		//printf("%d\n", (unsigned int)buffer2[8] * 256 * 256 * 256 + (unsigned int)buffer2[9] * 256 * 256 + (unsigned int)buffer2[10] * 256 + (unsigned int)buffer2[11]);
+		int a = cr_read(cr_file, buffer2, 2048);
+		int b = cr_read(cr_file, &buffer2[2048], 2048);
+		printf("%d %d\n", a, b);
+		printf("%d\n", (unsigned int)buffer2[0] * 256 * 256 * 256 + (unsigned int)buffer2[1] * 256 * 256 + (unsigned int)buffer2[2] * 256 + (unsigned int)buffer2[3]);
+		free(buffer2);
+		free(cr_file);
 
-	printf("------- rm -------\n");
-	printf("Exists /free.jpg: %i\n", cr_exists("/memes/free.jpg"));
-	//cr_rm("/memes/free.jpg");
-	//printf("Exists /free.jpg: %i\n", cr_exists("/memes/free.jpg"));
+	}
+
 
 	// Destruimos todo
 	free(buffer);
