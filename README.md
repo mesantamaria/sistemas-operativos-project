@@ -11,18 +11,24 @@
 
 ## TODO
 
+- [ ] Regalados
+	- [x] Directorio 0.1
+	- [x] Indice 0.1
+	- [x] Indirecto 0.1
+	- [x] Datos 0.1
+	- [x] Bitmap 0.1
 - [ ] Generales
-	- [x] `mount`
-	- [x] `bitmap`
-	- [x] `exists`
-	- [x] `ls`
+	- [x] `mount` 0.2
+	- [x] `bitmap` 0.2
+	- [x] `exists` 0.2
+	- [x] `ls` 0.2
 	- [ ] `mkdir` **(Carreño)**
 - [ ] Archivos
 	- [ ] `open` **(Carreño)**
 	- [ ] `read` **(Max)**
-	- [ ] `write`
+	- [ ] `write` **(Jahr)**
 	- [ ] `close`
-	- [ ] `rm`
+	- [ ] `rm` **(Nacho)**
 	- [ ] `hardlink`
 	- [ ] `unload`
 	- [ ] `load`

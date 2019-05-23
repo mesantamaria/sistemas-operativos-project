@@ -9,6 +9,7 @@
 #include "funciones/generales/exists.h"
 #include "funciones/generales/bitmap.h"
 #include "funciones/archivos/open.h"
+#include "funciones/archivos/rm.h"
 
 
 
@@ -26,7 +27,7 @@ int main(int argc, char *argv[])
 	unsigned char *buffer = malloc(sizeof(unsigned char) * 32 );
 	fseek(data, 0, SEEK_SET);  // inicio
 	fread(buffer, sizeof(unsigned char), 32, data);
-	
+
 
 	cr_mount(disk);
 	cr_ls("memes");
@@ -34,6 +35,7 @@ int main(int argc, char *argv[])
 	//cr_bitmap();
 	printf("Exists free: %i\n", cr_exists("/memes/free.jpg"));
 	printf("Exists freed: %i\n", cr_exists("/memes/freed.jpg"));
+	printf("Exists freed_este_si_que_no: %i\n", cr_exists("/memes/freed_este_si_que_no.jpg"));
 	char* stri = "/memes/freed.jpg";
 	crFILE* cr_file = cr_open(stri, 'w');
 	if (cr_file != NULL)
@@ -46,6 +48,13 @@ int main(int argc, char *argv[])
 	printf("Exists freed: %i\n", cr_exists("/memes/freed.jpg"));
 	cr_ls("memes");
 	// cr_bitmap();  // Imprime el bitmap
+
+
+	printf("------- rm -------\n");
+	crFILE* cr_file_test = cr_open("/test.txt", 'w');
+	printf("Exists /free.jpg: %i\n", cr_exists("/memes/free.jpg"));
+	cr_rm("/fred.jpg");
+	printf("Exists /free.jpg: %i\n", cr_exists("/memes/free.jpg"));
 
 	// Destruimos todo
 	free(buffer);
