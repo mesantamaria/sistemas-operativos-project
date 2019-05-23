@@ -11,15 +11,14 @@ int int_to_bits(unsigned int value){  // Size of integer is 8 bits = 1 Byte
 	for (int c = 7; c >= 0; c--)
 	{
 		k = value >> c;
-		printf("%d\n", k);
 		if (k & 1){
 			cantidad ++;
 			//printf("1");
-			//fprintf(stderr, "1");  // Hacerlo con printf se ejecuta más rápido
+			fprintf(stderr, "1");  // Hacerlo con printf se ejecuta más rápido
 		}
 		else{
 			//printf("0");
-			//fprintf(stderr, "0");
+			fprintf(stderr, "0");
 		}
 	}
 	return cantidad;
