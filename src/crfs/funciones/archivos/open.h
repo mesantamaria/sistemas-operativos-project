@@ -1,3 +1,3 @@
 #pragma once
 
-//void cr_bitmap();
+crFILE* cr_open(char* path, char mode);
