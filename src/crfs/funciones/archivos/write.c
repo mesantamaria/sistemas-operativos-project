@@ -71,13 +71,54 @@ unsigned int bit_pointer(FILE *data){
 unsigned int index_pointer(FILE* data, crFILE* file_desc){
   //data = fopen(disk_path, "rb" );
   unsigned char *buffer = malloc(sizeof( unsigned char ) * 2048);  // 2048 * 4 = 8192
-  fseek(data, file_desc->pointer * 2048, SEEK_SET);  // Bloques de Bitmap parten desde Bloque 1
-  fread(buffer, sizeof(unsigned char), 2048, data);  // Bloques de Bitmap desde Bloque 1 al 4
+  fseek(data, file_desc->pointer * 2048, SEEK_SET);
+  fread(buffer, sizeof(unsigned char), 2048, data);
   unsigned int index = 0;
-  for (int i = 8; i < 2044)
+  for (int i = 8; i < 2044;)
   {
     if((unsigned int)buffer[i]==0 && (unsigned int)buffer[i+1]==0 &&
      (unsigned int)buffer[i+2]==0 && (unsigned int)buffer[i+3]==0){
+       index = i;
+      break;
+    }
+    i = i+4;
+  }
+
+  free(buffer);
+  //fclose(data);
+
+  return index;
+
+}
+
+
+void setear_indirecto(FILE* data, crFILE* file_desc, unsigned int index_file){
+
+  unsigned char *buffer = malloc(sizeof( unsigned char ) * 2048);  // 2048 * 4 = 8192
+  fseek(data, index_file*2048, SEEK_SET);  // Bloques de Bitmap parten desde Bloque 1
+  fread(buffer, sizeof(unsigned char), 2048, data);  // Bloques de Bitmap desde Bloque 1 al 4
+  unsigned int index = 0;
+  for (int i = 0; i < 2048;){
+    unsigned int)buffer[i]=0;
+    i = i+4;
+  }
+
+  free(buffer);
+}
+
+/*index_indirecto retorna el index de */
+unsigned int index_indirecto(FILE* data, crFILE* file_desc, unsigned int index_file){
+  //data = fopen(disk_path, "rb" );
+  unsigned char *buffer = malloc(sizeof( unsigned char ) * 2048);  // 2048 * 4 = 8192
+  unsigned int pointer_to_data = get_pointer(file_desc->pointer*2048 + index_file, FILE *data);
+  fseek(data, pointer_to_data, SEEK_SET);  // Bloques de Bitmap parten desde Bloque 1
+  fread(buffer, sizeof(unsigned char), 2048, data);  // Bloques de Bitmap desde Bloque 1 al 4
+  unsigned int index = 0;
+  for (int i = 0; i < 2048;)
+  {
+    if((unsigned int)buffer[i]==0 && (unsigned int)buffer[i+1]==0 &&
+     (unsigned int)buffer[i+2]==0 && (unsigned int)buffer[i+3]==0){
+       index =i;
       break;
     }
     i = i+4;
@@ -95,7 +136,7 @@ int cr_write(crFILE* file_desc, void* buffer, int nbytes){
 
   FILE* data = fopen(disk_path, "r+" );
 
-  fseek(data, file_desc->pointer,SEEK_SET);
+  fseek(data, file_desc->pointer*2048 ,SEEK_SET);
 
   int cantidad_bytes = 0;
 
@@ -114,10 +155,16 @@ int cr_write(crFILE* file_desc, void* buffer, int nbytes){
       cantidad_bytes = nbytes;
       change_bitmap(indice_bitmap, 1,data);
       if(index_file<2004){
-        fseek(data, file_desc->pointer + index_file, SEEK_SET);
+        fseek(data, file_desc->pointer*2048 + index_file, SEEK_SET);
         fwrite(&indice_bitmap, sizeof(unsigned int), 1, data);
       }else{
         //manejo indirecto
+        unsigned int index_indirect = index_indirecto(data, file_desc,index_file);
+
+        fseek(data, index_indirect*2048, SEEK_SET);
+        fwrite(&indice_bitmap, sizeof(unsigned int), 1, data);
+
+
       }
       //escribir en puntero o en bloque indirecto y luego bloque de datos(actualizand bitmap)
 
@@ -154,10 +201,16 @@ int cr_write(crFILE* file_desc, void* buffer, int nbytes){
       }
       change_bitmap(indice_bitmap, 1,data);
       if(index_file<2004){
-        fseek(data, file_desc->pointer + index_file, SEEK_SET);
+        fseek(data, file_desc->pointer*2048 + index_file, SEEK_SET);
         fwrite(&indice_bitmap, sizeof(unsigned int), 1, data);
       }else{
         //manejo indirecto
+        unsigned int index_indirect = index_indirecto(data, file_desc,index_file);
+
+        fseek(data, index_indirect*2048, SEEK_SET);
+        fwrite(&indice_bitmap, sizeof(unsigned int), 1, data);
+
+
       }
       //escribir en puntero o en bloque indirecto y luego bloque de datos(actualizand bitmap)
     }
