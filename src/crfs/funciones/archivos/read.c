@@ -35,15 +35,16 @@ int cr_read(crFILE* file_desc, void* buffer, int nbytes) {
 	int offset_indirecto = 0;
 	int puntero;
 	while(contador < bytes_por_leer){
+		//printf("BLOCK %d %d %d\n", block, bytes_por_leer, byte_in_block);
 		if (block > 0 || indirect_block)
 		{
 			fseek(data, (file_desc -> pointer), SEEK_SET);
 			if (!indirect_block)
 			{
 				fread(buffer2, sizeof(unsigned char), 2048, data);
-				puntero = ((unsigned int)buffer2[8 + block*4] * 256 * 256 * 256 + 
-				(unsigned int)buffer2[9 + block*4] * 256 * 256 + 
-				(unsigned int)buffer2[10 + block*4] * 256 + (unsigned int)buffer2[11 + block*4]) * 2048;
+				puntero = ((unsigned int)buffer2[8 + (block-1)*4] * 256 * 256 * 256 + 
+				(unsigned int)buffer2[9 + (block-1)*4] * 256 * 256 + 
+				(unsigned int)buffer2[10 + (block-1)*4] * 256 + (unsigned int)buffer2[11 + (block-1)*4]) * 2048;
 				fseek(data, puntero, SEEK_SET);
 			}
 			else
@@ -64,7 +65,7 @@ int cr_read(crFILE* file_desc, void* buffer, int nbytes) {
 				(unsigned int)buffer2[2010 + indirecto*4] * 256 + (unsigned int)buffer2[2011 + indirecto*4]) * 2048;
 				fseek(data, puntero, SEEK_SET);
 				fread(buffer_bloque_indirecto, sizeof(unsigned char), 2048, data);
-				offset_indirecto = (2048 / 4) % block;
+				offset_indirecto = block % (2048 / 4);  // era (2048 / 4) % block
 				puntero = ((unsigned int)buffer_bloque_indirecto[offset_indirecto * 4] * 256 * 256 * 256 + 
 				(unsigned int)buffer_bloque_indirecto[1 + offset_indirecto *4] * 256 * 256 + 
 				(unsigned int)buffer_bloque_indirecto[2 + offset_indirecto *4] * 256 + 

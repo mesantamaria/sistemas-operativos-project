@@ -1,3 +1,3 @@
 #pragma once
 
-//void cr_bitmap();
+int cr_unload(char* orig, char* dest);
