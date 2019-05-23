@@ -107,8 +107,9 @@ int cr_write(crFILE* file_desc, void* buffer, int nbytes){
       fwrite(buffer, sizeof(unsigned char), nbytes, data);
       bytes_restantes = 0;
       cantidad_bytes = nbytes;
-    //escribir en puntero o en bloque indirecto y luego bloque de datos(actualizand bitmap)
-    //marcar bitmap
+      change_bitmap(indice_bitmap, 1,data);
+      //escribir en puntero o en bloque indirecto y luego bloque de datos(actualizand bitmap)
+      
   }else{
     return cantidad_bytes;
   }
@@ -125,7 +126,7 @@ int cr_write(crFILE* file_desc, void* buffer, int nbytes){
         if(bytes_restantes<2048){
 
           fwrite(buffer, sizeof(unsigned char), bytes_restantes, data);
-          bytes_restantes =0;
+          bytes_restantes = 0;
           cantidad_bytes = nbytes;
 
         }else{
@@ -133,12 +134,14 @@ int cr_write(crFILE* file_desc, void* buffer, int nbytes){
           bytes_restantes = bytes_restantes - 2048;
           cantidad_bytes = cantidad_bytes + 2048;
           buffer = buffer + 2048;
+
         }
       }else{
         return cantidad_bytes;
       }
+      change_bitmap(indice_bitmap, 1,data);
+
       //escribir en puntero o en bloque indirecto y luego bloque de datos(actualizand bitmap)
-      //marcar bitmap
     }
 }
 
