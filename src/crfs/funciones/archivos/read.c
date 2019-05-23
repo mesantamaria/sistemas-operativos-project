@@ -51,10 +51,11 @@ int cr_read(crFILE* file_desc, void* buffer, int nbytes) {
 				if (block > 10 * 2048 / 4)
 				{
 					printf("Se superó el espacio máximo\n");
+					file_desc -> bytes_leidos += contador;
 					free(buffer2);
 					free(buffer_bloque_indirecto);
 					fclose(data);
-					return 0;
+					return contador;
 				}
 				fread(buffer2, sizeof(unsigned char), 2048, data);
 				indirecto = block / (2048 / 4);
@@ -97,30 +98,5 @@ int cr_read(crFILE* file_desc, void* buffer, int nbytes) {
 	free(buffer_bloque_indirecto);
 	fclose(data);
 	return contador;
-
-	if (nbytes < 2048 - file_desc -> bytes_leidos)
-	{
-		fread(buffer, sizeof(unsigned char), nbytes, data);	
-		file_desc -> bytes_leidos += nbytes;
-	}
-	else{
-		if (file_desc -> bytes_leidos < 2048)
-		{
-			fread(buffer, sizeof(unsigned char), 2048 - file_desc -> bytes_leidos, data);
-			file_desc -> bytes_leidos = 2048;
-			nbytes -= 2048 - file_desc -> bytes_leidos;
-		}
-		int block = file_desc -> bytes_leidos / 2048;
-		int byte_in_block = file_desc -> bytes_leidos % 2048;
-		fseek(data, (file_desc -> pointer) + 2008 + block - 1, SEEK_SET);
-		if (nbytes > byte_in_block)
-		{
-			/* code */
-		}
-
-
-		//cr_read();
-	}
-
 	
 }
