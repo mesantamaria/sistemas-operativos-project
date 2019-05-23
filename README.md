@@ -16,10 +16,10 @@
 	- [x] `bitmap`
 	- [x] `exists`
 	- [x] `ls`
-	- [ ] `mkdir` **(Nacho)**
+	- [ ] `mkdir` **(Carreño)**
 - [ ] Archivos
 	- [ ] `open` **(Carreño)**
-	- [ ] `read`
+	- [ ] `read` **(Max)**
 	- [ ] `write`
 	- [ ] `close`
 	- [ ] `rm`
