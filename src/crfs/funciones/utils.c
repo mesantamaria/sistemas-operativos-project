@@ -78,6 +78,7 @@ void change_bitmap(unsigned int bloque, int value, FILE* data) {
 	else {
 		buffer[bloque / 8] |= 1UL << (bloque % 8);
 	}
+	fseek(data, 2048, SEEK_SET);  // Bloques de Bitmap parten desde Bloque 1
 	fwrite(buffer, sizeof(unsigned char), 8192, data);
 	free(buffer);
 }

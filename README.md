@@ -22,14 +22,14 @@
 	- [x] `bitmap` 0.2
 	- [x] `exists` 0.2
 	- [x] `ls` 0.2
-	- [ ] `mkdir` **(Carreño)**
+	- [x] `mkdir` 0.2 **(Carreño)**
 - [ ] Archivos
-	- [ ] `open` **(Carreño)**
-	- [ ] `read` **(Max)**
+	- [x] `open` 0.4 **(Carreño)**
+	- [x] `read` 0.4 **(Max)**
 	- [ ] `write` **(Jahr)**
-	- [ ] `close`
-	- [ ] `rm` **(Nacho)**
-	- [ ] `hardlink`
+	- [x] `close` 0.4
+	- [x] `rm` 0.4 **(Nacho)**
+	- [ ] `hardlink` 0.4
 	- [ ] `unload`
 	- [ ] `load`
 - [ ] Archivos de prueba
