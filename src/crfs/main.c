@@ -25,12 +25,8 @@ int main(int argc, char *argv[])
 	}
 
 	// Obtenemos el nombre del archivo del disco.
-	int mode = argv[2];
+	int mode = atoi(argv[2]);
 	char* disk = argv[1];
-	FILE* data = fopen( "simdiskfilled-old.bin", "rb" );
-	unsigned char *buffer = malloc(sizeof(unsigned char) * 32 );
-	fseek(data, 0, SEEK_SET);  // inicio
-	fread(buffer, sizeof(unsigned char), 32, data);
 
 
 	cr_mount(disk);
@@ -44,10 +40,8 @@ int main(int argc, char *argv[])
 	if (mode == 3)
 	{
 		printf("------- rm -------\n");
-		cr_bitmap();  // Imprime el bitmap
 		printf("Exists /free.jpg: %i\n", cr_exists("/memes/free.jpg"));
 		cr_rm("/memes/free.jpg");
-		cr_bitmap();  // Imprime el bitmap
 		printf("Exists /free.jpg: %i\n", cr_exists("/memes/free.jpg"));
 	}
 	else if (mode == 4)
@@ -65,11 +59,6 @@ int main(int argc, char *argv[])
 		free(cr_file);
 
 	}
-
-
-	// Destruimos todo
-	free(buffer);
-	fclose(data);
 
 	return 0;
 }

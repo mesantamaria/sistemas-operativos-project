@@ -4,10 +4,15 @@
 #include <string.h>
 #include <stdbool.h>
 #include "rm.h"
+#include "../generales/exists.h"
 #include "../globals.h"
 #include "../utils.h"
 
 int cr_rm(char* path) {
+	if (!cr_exists(path)) {
+		printf("Archivo no existe.\n");
+		return 0;
+	}
 	FILE* data = fopen(disk_path, "r+" );
 
 	unsigned int file_pointer = get_pointer_from_path(path, data);
@@ -23,7 +28,7 @@ int cr_rm(char* path) {
 
 	fclose(data);
 
-	return 0;
+	return 1;
 }
 
 void borrar_bloques_punteros_indirectos(unsigned int punteros, unsigned int  n_punteros, FILE* data) {
