@@ -8,7 +8,9 @@
 #include "funciones/generales/ls.h"
 #include "funciones/generales/exists.h"
 #include "funciones/generales/bitmap.h"
+#include "funciones/generales/mkdir.h"
 #include "funciones/archivos/open.h"
+#include "funciones/archivos/close.h"
 
 
 
@@ -22,16 +24,11 @@ int main(int argc, char *argv[])
 
 	// Obtenemos el nombre del archivo del disco.
 	char* disk = argv[1];
-	FILE* data = fopen( "simdiskfilled-old.bin", "rb" );
-	unsigned char *buffer = malloc(sizeof(unsigned char) * 32 );
-	fseek(data, 0, SEEK_SET);  // inicio
-	fread(buffer, sizeof(unsigned char), 32, data);
-	
 
 	cr_mount(disk);
-	cr_ls("memes");
-	//printf("Bitmap:\n");
-	//cr_bitmap();
+
+	printf("Bitmap:\n");
+	cr_bitmap();
 	printf("Exists free: %i\n", cr_exists("/memes/free.jpg"));
 	printf("Exists freed: %i\n", cr_exists("/memes/freed.jpg"));
 	char* stri = "/memes/freed.jpg";
@@ -40,16 +37,30 @@ int main(int argc, char *argv[])
 	{
 		printf("Pointer: %u\n", cr_file -> pointer);
 		printf("Mode: %c\n", cr_file -> mode);
-
-		free(cr_file);
 	}
+
 	printf("Exists freed: %i\n", cr_exists("/memes/freed.jpg"));
+	cr_bitmap();
 	cr_ls("memes");
+	cr_mkdir("/memes/horas");
+	cr_bitmap();
+	cr_ls("memes");
+
+	crFILE* cr_file_1 = cr_open("/memes/horas/ar.txt", 'w');
+	if (cr_file != NULL)
+	{
+		printf("Pointer: %u\n", cr_file_1 -> pointer);
+		printf("Mode: %c\n", cr_file_1 -> mode);
+	}
+	cr_close(cr_file_1);
+
+	cr_bitmap();
+
+	printf("mkdir: %i\n", cr_mkdir("/memes/horas/minutos"));
+
+	cr_bitmap();
 	// cr_bitmap();  // Imprime el bitmap
-
 	// Destruimos todo
-	free(buffer);
-	fclose(data);
-
+	cr_close(cr_file);
 	return 0;
 }

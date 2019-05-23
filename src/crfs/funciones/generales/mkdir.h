@@ -1,3 +1,3 @@
 #pragma once
 
-int cr_mkdir(char *foldername);
+int cr_mkdir(char *route);
