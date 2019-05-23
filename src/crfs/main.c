@@ -103,9 +103,6 @@ int main(int argc, char *argv[])
 	}
 
 
-	// Destruimos todo
-	free(buffer);
-	fclose(data);
 
 	return 0;
 }
