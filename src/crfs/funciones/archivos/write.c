@@ -44,6 +44,7 @@ int condition(FILE* data){
 
 }
 
+/* bit_pointer retorna el index del primer bitmap en 0 encontrado, si no se encuentra nada se retorna 0 */
 unsigned int bit_pointer(FILE *data){
 
   //data = fopen(disk_path, "rb" );
@@ -64,7 +65,7 @@ unsigned int bit_pointer(FILE *data){
   return num;
 }
 
-
+/* index_pointer retorna el primer indice del bloque indice si es que se encuentran 4 bytes en 0 seguidos*/
 unsigned int index_pointer(FILE* data, crFILE* file_desc){
   //data = fopen(disk_path, "rb" );
   unsigned char *buffer = malloc(sizeof( unsigned char ) * 2048);  // 2048 * 4 = 8192
@@ -108,8 +109,11 @@ int cr_write(crFILE* file_desc, void* buffer, int nbytes){
       bytes_restantes = 0;
       cantidad_bytes = nbytes;
       change_bitmap(indice_bitmap, 1,data);
+      fseek(data, file_desc->pointer + index_file, SEEK_SET);
+      fwrite(&indice_bitmap, sizeof(unsigned int), 1, data);
+
       //escribir en puntero o en bloque indirecto y luego bloque de datos(actualizand bitmap)
-      
+
   }else{
     return cantidad_bytes;
   }
@@ -140,7 +144,8 @@ int cr_write(crFILE* file_desc, void* buffer, int nbytes){
         return cantidad_bytes;
       }
       change_bitmap(indice_bitmap, 1,data);
-
+      fseek(data, file_desc->pointer + index_file, SEEK_SET);
+      fwrite(&indice_bitmap, sizeof(unsigned int), 1, data);
       //escribir en puntero o en bloque indirecto y luego bloque de datos(actualizand bitmap)
     }
 }
