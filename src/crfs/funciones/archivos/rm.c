@@ -58,7 +58,6 @@ void borrar_bloque(unsigned int pointer, FILE* data) {
 	fseek(data, pointer, SEEK_SET);
 	fwrite(buffer, sizeof(unsigned char), 2048, data);
 	free(buffer);
-	printf("%d\n", pointer/2048);
 	change_bitmap(pointer / 2048, 0, data);
 }
 
