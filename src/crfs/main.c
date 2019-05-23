@@ -15,6 +15,7 @@
 #include "funciones/archivos/rm.h"
 #include "funciones/utils.h"
 #include "funciones/archivos/read.h"
+#include "funciones/archivos/unload.h"
 
 
 
@@ -58,13 +59,16 @@ int main(int argc, char *argv[])
 		//fseek(data, cr_file -> pointer, SEEK_SET);
 		//fread(buffer2, sizeof(unsigned char), 2048, data);
 		//printf("%d\n", (unsigned int)buffer2[8] * 256 * 256 * 256 + (unsigned int)buffer2[9] * 256 * 256 + (unsigned int)buffer2[10] * 256 + (unsigned int)buffer2[11]);
-		int a = cr_read(cr_file, buffer2, 2048);
-		int b = cr_read(cr_file, &buffer2[2048], 2048);
-		printf("%d %d\n", a, b);
-		printf("%d\n", (unsigned int)buffer2[0] * 256 * 256 * 256 + (unsigned int)buffer2[1] * 256 * 256 + (unsigned int)buffer2[2] * 256 + (unsigned int)buffer2[3]);
+		//int a = cr_read(cr_file, buffer2, 2048);
+		//int b = cr_read(cr_file, &buffer2[2048], 2048);
+		//printf("%d %d\n", a, b);
+		//printf("%d\n", (unsigned int)buffer2[0] * 256 * 256 * 256 + (unsigned int)buffer2[1] * 256 * 256 + (unsigned int)buffer2[2] * 256 + (unsigned int)buffer2[3]);
 		free(buffer2);
 		free(cr_file);
-
+		cr_ls("");
+		cr_unload("/SSBS.mp3", "cancion.mp3");
+		//cr_unload("/thanos/thanos.gif", "thanos.gif");
+		//cr_unload("/germy.txt", "germy.txt");
 	}
 
 	else if (mode == 1)
@@ -101,7 +105,6 @@ int main(int argc, char *argv[])
 		cr_close(cr_file_3);
 
 	}
-
 
 
 	return 0;
