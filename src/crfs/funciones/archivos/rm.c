@@ -27,42 +27,26 @@ int cr_rm(char* path) {
 }
 
 void borrar_bloques_punteros_indirectos(unsigned int punteros, unsigned int  n_punteros, FILE* data) {
-	unsigned char *buffer = malloc(sizeof( unsigned char ) * 4);
 	unsigned int pointer = 0;
 	int i, j;
 	for (i = 0; i < n_punteros; i++) {
-		pointer = 0;
-		fseek(data, punteros + 4 * i, SEEK_SET);
-		fread(buffer, sizeof(unsigned char), 4, data);
-		for (j = 2; j < 4; j++) {
-			pointer += (unsigned int)buffer[j] << 8*(3-j);
-		}
-		pointer *= 2048;
+		pointer = get_pointer(punteros + 4 * i, data);
 		if (pointer != 0) {
 			borrar_bloques_punteros(pointer, 524, data);
 			borrar_bloque(pointer, data);
 		}
 	}
-	free(buffer);
 }
 
 void borrar_bloques_punteros(unsigned int punteros, unsigned int  n_punteros, FILE* data) {
-	unsigned char *buffer = malloc(sizeof( unsigned char ) * 4);
 	unsigned int pointer = 0;
 	int i, j;
 	for (i = 0; i < n_punteros; i++) {
-		pointer = 0;
-		fseek(data, punteros + 4 * i, SEEK_SET);
-		fread(buffer, sizeof(unsigned char), 4, data);
-		for (j = 2; j < 4; j++) {
-			pointer += (unsigned int)buffer[j] << 8*(3-j);
-		}
-		pointer *= 2048;
+		pointer = get_pointer(punteros + 4 * i, data);
 		if (pointer != 0) {
 			borrar_bloque(pointer, data);
 		}
 	}
-	free(buffer);
 }
 
 void borrar_bloque(unsigned int pointer, FILE* data) {

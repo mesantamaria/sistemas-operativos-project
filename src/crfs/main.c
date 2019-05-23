@@ -53,11 +53,9 @@ int main(int argc, char *argv[])
 	cr_ls("memes");
 
 	printf("------- rm -------\n");
-	cr_bitmap();  // Imprime el bitmap
 	printf("Exists /free.jpg: %i\n", cr_exists("/memes/free.jpg"));
-	cr_rm("/memes/free.jpg");
-	cr_bitmap();  // Imprime el bitmap
-	printf("Exists /free.jpg: %i\n", cr_exists("/memes/free.jpg"));
+	//cr_rm("/memes/free.jpg");
+	//printf("Exists /free.jpg: %i\n", cr_exists("/memes/free.jpg"));
 
 	// Destruimos todo
 	free(buffer);

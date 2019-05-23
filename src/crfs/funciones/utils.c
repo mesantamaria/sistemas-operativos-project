@@ -82,3 +82,18 @@ void change_bitmap(unsigned int bloque, int value, FILE* data) {
 	fwrite(buffer, sizeof(unsigned char), 8192, data);
 	free(buffer);
 }
+
+unsigned int get_pointer(unsigned int entry, FILE* data) {
+	unsigned char *buffer = malloc(sizeof( unsigned char ) * 4);
+	unsigned int pointer = 0;
+	int j;
+	pointer = 0;
+	fseek(data, entry, SEEK_SET);
+	fread(buffer, sizeof(unsigned char), 4, data);
+	for (j = 2; j < 4; j++) {
+		pointer += (unsigned int)buffer[j] << 8*(3-j);
+	}
+	pointer *= 2048;
+	free(buffer);
+	return pointer;
+}
