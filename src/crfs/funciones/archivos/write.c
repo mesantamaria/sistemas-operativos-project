@@ -99,7 +99,7 @@ void setear_indirecto(FILE* data, crFILE* file_desc, unsigned int index_file){
   fread(buffer, sizeof(unsigned char), 2048, data);  // Bloques de Bitmap desde Bloque 1 al 4
   unsigned int index = 0;
   for (int i = 0; i < 2048;){
-    unsigned int)buffer[i]=0;
+    buffer[i]=0;
     i = i+4;
   }
 
@@ -110,7 +110,7 @@ void setear_indirecto(FILE* data, crFILE* file_desc, unsigned int index_file){
 unsigned int index_indirecto(FILE* data, crFILE* file_desc, unsigned int index_file){
   //data = fopen(disk_path, "rb" );
   unsigned char *buffer = malloc(sizeof( unsigned char ) * 2048);  // 2048 * 4 = 8192
-  unsigned int pointer_to_data = get_pointer(file_desc->pointer*2048 + index_file, FILE *data);
+  unsigned int pointer_to_data = get_pointer(file_desc->pointer*2048 + index_file, data);
   fseek(data, pointer_to_data, SEEK_SET);  // Bloques de Bitmap parten desde Bloque 1
   fread(buffer, sizeof(unsigned char), 2048, data);  // Bloques de Bitmap desde Bloque 1 al 4
   unsigned int index = 0;
