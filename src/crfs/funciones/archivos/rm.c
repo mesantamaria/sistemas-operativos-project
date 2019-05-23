@@ -34,9 +34,10 @@ void borrar_bloques_punteros_indirectos(unsigned int punteros, unsigned int  n_p
 		pointer = 0;
 		fseek(data, punteros + 4 * i, SEEK_SET);
 		fread(buffer, sizeof(unsigned char), 4, data);
-		for (j = 0; j < 4; j++) {
+		for (j = 2; j < 4; j++) {
 			pointer += (unsigned int)buffer[j] << 8*(3-j);
 		}
+		pointer *= 2048;
 		if (pointer != 0) {
 			borrar_bloques_punteros(pointer, 524, data);
 			borrar_bloque(pointer, data);
@@ -53,9 +54,10 @@ void borrar_bloques_punteros(unsigned int punteros, unsigned int  n_punteros, FI
 		pointer = 0;
 		fseek(data, punteros + 4 * i, SEEK_SET);
 		fread(buffer, sizeof(unsigned char), 4, data);
-		for (j = 0; j < 4; j++) {
+		for (j = 2; j < 4; j++) {
 			pointer += (unsigned int)buffer[j] << 8*(3-j);
 		}
+		pointer *= 2048;
 		if (pointer != 0) {
 			borrar_bloque(pointer, data);
 		}
@@ -72,6 +74,7 @@ void borrar_bloque(unsigned int pointer, FILE* data) {
 	fseek(data, pointer, SEEK_SET);
 	fwrite(buffer, sizeof(unsigned char), 2048, data);
 	free(buffer);
+	printf("%d\n", pointer/2048);
 	change_bitmap(pointer / 2048, 0, data);
 }
 

@@ -10,6 +10,7 @@
 #include "funciones/generales/bitmap.h"
 #include "funciones/archivos/open.h"
 #include "funciones/archivos/rm.h"
+#include "funciones/utils.h"
 
 
 
@@ -50,10 +51,10 @@ int main(int argc, char *argv[])
 
 
 	printf("------- rm -------\n");
-	//cr_bitmap();  // Imprime el bitmap
+	cr_bitmap();  // Imprime el bitmap
 	printf("Exists /free.jpg: %i\n", cr_exists("/memes/free.jpg"));
 	cr_rm("/memes/free.jpg");
-	//cr_bitmap();  // Imprime el bitmap
+	cr_bitmap();  // Imprime el bitmap
 	printf("Exists /free.jpg: %i\n", cr_exists("/memes/free.jpg"));
 
 	// Destruimos todo
