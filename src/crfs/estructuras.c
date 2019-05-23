@@ -8,6 +8,7 @@ crFILE* crFILE_init(unsigned int pointer, char mode)
 
 	cr_file -> pointer = pointer;
 	cr_file -> mode = mode;
+	cr_file -> bytes_leidos = 0;
 
 	return cr_file;
 }
