@@ -1,5 +1,8 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include "bitmap.h"
+#include "../../estructuras.h"
+#include "../globals.h"
 
-//void cr_bitmap() {}
+int cr_hardlink(char* orig, char* dest){
+	
+}

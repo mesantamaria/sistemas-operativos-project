@@ -92,6 +92,7 @@ int main(int argc, char *argv[])
 		crFILE* cr_file_3 = cr_open("/memes/pizza/gol.txt", 'w');
 		printf("------- memes/pizza -------\n");
 		cr_ls("/memes/pizza");
+		crFILE* cr_file_4 = cr_open("/memes/pizza/gol.txt", 'w');
 
 
 
@@ -99,6 +100,7 @@ int main(int argc, char *argv[])
 		cr_close(cr_file_1);
 		cr_close(cr_file_2);
 		cr_close(cr_file_3);
+		cr_close(cr_file_4);
 
 	}
 
