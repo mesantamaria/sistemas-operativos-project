@@ -76,10 +76,7 @@ int main(int argc, char *argv[])
 		//cr_unload("/germy.txt", "germy.txt");
 		//cr_unload("/Program in C.mkv", "Program in C.mkv");
 		//cr_unload("/free.jpg", "free.jpg");
-		char* destination = (char*)malloc(sizeof(char) * 5);
-		char hola[3] = "hol";
-		strcpy(destination, hola);
-		free(destination);
+
 
 	}
 	else if (mode == 1)
