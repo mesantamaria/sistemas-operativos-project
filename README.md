@@ -4,7 +4,7 @@
 
 | # | Nombre                 | N° Alumno | Mail UC                                       |
 |---|------------------------|-----------|-----------------------------------------------|
-| 1 | Sebastián Carreño      | 15639746  |                                               |
+| 1 | Sebastián Carreño      | 15639746  | [sgcarreno@uc.cl](mailto:sgcarreno@uc.cl)     |
 | 2 | Ignacio Castañeda      | 15634728  | [ifcastaneda@uc.cl](mailto:ifcastaneda@uc.cl) |
 | 3 | Andres Jahr            | 14636638  | [asjahr@uc.cl](mailto:asjahr@uc.cl)           |
 | 4 | Maximiliano Santamaria |           |                                               |
@@ -22,9 +22,9 @@
 	- [x] `bitmap` 0.2
 	- [x] `exists` 0.2
 	- [x] `ls` 0.2
-	- [x] `mkdir` 0.2 **(Carreño)**
+	- [x] `mkdir` 0.2
 - [ ] Archivos
-	- [x] `open` 0.4 **(Carreño)**
+	- [x] `open` 0.4
 	- [x] `read` 0.4 **(Max)**
 	- [ ] `write` **(Jahr)**
 	- [x] `close` 0.4
