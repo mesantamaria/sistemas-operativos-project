@@ -110,7 +110,7 @@ void borrar_puntero_directorio(char* path, FILE* data) {
 		{
 			free(buffer);
 			printf("La ruta no existe.\n");
-			return NULL;
+			return ;
 		}
 		folder = strtok(NULL, "/");
 	}
