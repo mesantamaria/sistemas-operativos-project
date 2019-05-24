@@ -26,6 +26,11 @@ int cr_rm(char* path) {
 		borrar_bloques_punteros_indirectos(indirect_pointers, 10, data);
 		borrar_bloque(file_pointer, data);
 	}
+	else {
+		hardlinks -= 1;
+		fseek(data, file_pointer + 4, SEEK_SET);
+		fwrite(&hardlinks, sizeof(unsigned int), 1, data);
+	}
 
 	borrar_puntero_directorio(path, data);
 
