@@ -67,10 +67,18 @@ int main(int argc, char *argv[])
 		//printf("%d\n", (unsigned int)buffer2[0] * 256 * 256 * 256 + (unsigned int)buffer2[1] * 256 * 256 + (unsigned int)buffer2[2] * 256 + (unsigned int)buffer2[3]);
 		free(buffer2);
 		free(cr_file);
-		cr_ls("");
-		cr_unload("/SSBS.mp3", "cancion.mp3");
-		//cr_unload("/thanos/thanos.gif", "thanos.gif");
+		//cr_ls("memes");
+		//unload_file("/memes/cmake.png", "cmake.png");
+		//cr_unload("/SSBS.mp3", "cancion.mp3");
+		cr_unload("/memes", "descargas");
 		//cr_unload("/germy.txt", "germy.txt");
+		//cr_unload("/Program in C.mkv", "Program in C.mkv");
+		//cr_unload("/free.jpg", "free.jpg");
+		char* destination = (char*)malloc(sizeof(char) * 5);
+		char hola[3] = "hol";
+		strcpy(destination, hola);
+		free(destination);
+
 	}
 	else if (mode == 1)
 	{

@@ -1,5 +1,11 @@
-#include "write.h"
+
+#include <stdlib.h>
+#include <stdio.h>
+#include "../generales/bitmap.h"
+#include "../../estructuras.h"
+#include "../utils.h"
 #include "../globals.h"
+#include "write.h"
 
 /*
 int bitmap_value(unsigned int pointer, FILE* data){
