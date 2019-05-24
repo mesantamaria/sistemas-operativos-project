@@ -84,32 +84,42 @@ int main(int argc, char *argv[])
 	{
 		printf("------- memes -------\n");
 		cr_ls("/memes");
+		printf("\nAbro el ya existente 'for.jpg' en modo 'r'\n");
 		crFILE* cr_file = cr_open("/memes/for.jpg", 'r');
 		printf("------- memes -------\n");
 		cr_ls("/memes");
+		printf("\nAbro el no existente 'fortress.jpg' en modo 'w'\n");
 		crFILE* cr_file_1 = cr_open("/memes/fortress.jpg", 'w');
 		printf("------- memes -------\n");
 		cr_ls("/memes");
+		printf("\nCreo directorio pizza en memes\n");
 		cr_mkdir("/memes/pizza");
 		printf("------- memes -------\n");
 		cr_ls("/memes");
+		printf("\nCreo nuevamente directorio pizza en memes\n");
 		cr_mkdir("/memes/pizza");
 		printf("------- memes -------\n");
 		cr_ls("/memes");
+		printf("\nAbro en /memes/pizza el no existente 'gol.txt' en modo 'w'\n");
 		crFILE* cr_file_2 = cr_open("/memes/pizza/gol.txt", 'w');
-		printf("------- memes/pizza ------- remove\n");
-		cr_ls("/memes/pizza");
-		cr_rm("/memes/pizza/gol.txt");
 		printf("------- memes/pizza -------\n");
 		cr_ls("/memes/pizza");
+		printf("\nBorro gol.txt\n");
+		cr_rm("/memes/pizza/gol.txt");
+		printf("------- memes/pizza ------- \n");
+		cr_ls("/memes/pizza");
+		printf("\nCreo nuevamente gol.txt\n");
 		crFILE* cr_file_3 = cr_open("/memes/pizza/gol.txt", 'w');
 		printf("------- memes/pizza -------\n");
 		cr_ls("/memes/pizza");
+		printf("\nIntento crear nuevamente gol.txt\n");
 		crFILE* cr_file_4 = cr_open("/memes/pizza/gol.txt", 'w');
-
+		printf("\nCreo un hardlink de '/memes/fortress.jpg' en '/memes/pizza'\n");
 		cr_hardlink("/memes/fortress.jpg", "/memes/pizza");
 		printf("------- memes/pizza -------\n");
 		cr_ls("/memes/pizza");
+		printf("\nIntento abrir en modo 'r' un archivo no existente\n");
+		crFILE* cr_file_5 = cr_open("/memes/pizza/no_esta.jpg", 'r');
 
 
 
@@ -118,6 +128,7 @@ int main(int argc, char *argv[])
 		cr_close(cr_file_2);
 		cr_close(cr_file_3);
 		cr_close(cr_file_4);
+		cr_close(cr_file_5);
 
 	}
 	return 0;
