@@ -34,7 +34,7 @@ int main(int argc, char *argv[])
 	int mode = atoi(argv[2]);
 	char* disk = argv[1];
 
-
+	printf("Monto el disco %s\n", disk);
 	cr_mount(disk);
 	//cr_ls("memes");
 	//printf("Bitmap:\n");
@@ -172,6 +172,60 @@ int main(int argc, char *argv[])
 		free(buffer);
 		*/
 
+
+	}
+	else if (mode == 5)
+	{
+		printf("\nAbro archivo 'germy.txt' en modo 'r'\n");
+		crFILE* cr_file = cr_open("/germy.txt", 'r');
+		unsigned char *buffer = malloc(sizeof(unsigned char) * 2048 * 9 );
+		int bytes_leidos = cr_read(cr_file, buffer, 2048);
+		
+		printf("\n'germy.txt' tiene un tamaño de 277 Bytes. Leo los 277 Bytes\n" );
+		bytes_leidos = cr_read(cr_file, buffer, 277);  // Los 2048 son una decisión de diseño
+ 		printf("Se leyeron con éxito %d Bytes\n", bytes_leidos);
+ 		
+ 		printf("\nIntento leer 20 Bytes más de 'germy.txt'\n" );
+ 		bytes_leidos = cr_read(cr_file, buffer, 20);
+ 		printf("Se leyeron con éxito %d Bytes\n", bytes_leidos);
+
+ 		printf("\nCierro el archivo 'germy.txt'\n");
+ 		cr_close(cr_file);
+
+ 		printf("\nAbro archivo 'germy.txt' en modo 'r'\n");
+		cr_file = cr_open("/germy.txt", 'r');
+		
+		printf("\n'germy.txt' tiene un tamaño de 277 Bytes. Intento leer 300 Bytes\n" );
+		bytes_leidos = cr_read(cr_file, buffer, 2048);  // Los 2048 son una decisión de diseño
+		bytes_leidos = cr_read(cr_file, buffer, 300);
+ 		printf("Se leyeron con éxito %d Bytes\n", bytes_leidos);
+
+		printf("\nCierro el archivo 'germy.txt'\n");
+ 		cr_close(cr_file); 		
+
+		printf("\nMe gusta thanos así que reviso si existe una carpeta que se llame así con 'cr_exists'\n");
+		if (cr_exists("/thanos"))
+		{
+			printf("La carpeta existe\n");
+		}
+		else printf("La carpeta no existe\n");
+
+		printf("\nCopio la carpeta 'thanos' a mi computador para tener todo sobre él. Lo voy a copiar en una carpeta llamada 'Descargas'\n");
+		cr_unload("/thanos", "Descargas");
+
+		printf("\nTambién me gusta 'Iron Man' así que voy a intentar copiar su contenido también en mi computador\n");
+		cr_unload("/Iron Man", "Descargas");
+
+		printf("\nVeo que hay un video en el disco sobre C. Lo copio a mi carpeta de Descargas para verlo\n");
+		cr_unload("/Program in C.mkv", "Descargas");
+
+
+
+
+ 		
+
+		free(buffer);
+		//cr_close(cr_file);
 
 	}
 	return 0;
