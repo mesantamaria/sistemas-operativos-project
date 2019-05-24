@@ -222,7 +222,6 @@ int cr_write(crFILE* file_desc, void* buffer, int nbytes){
     }
 }
 
-  free(data);
 
   return cantidad_bytes;
 }
