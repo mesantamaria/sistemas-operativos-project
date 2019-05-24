@@ -17,6 +17,8 @@
 #include "funciones/utils.h"
 #include "funciones/archivos/read.h"
 #include "funciones/archivos/unload.h"
+#include "funciones/archivos/write.h"
+
 
 
 
@@ -56,8 +58,8 @@ int main(int argc, char *argv[])
 	}
 	else if (mode == 4)
 	{
-		crFILE* cr_file = cr_open("/thanos/thanos.gif", 'r');
-		unsigned char *buffer2 = malloc(sizeof(unsigned char) * 2048 * 9 );
+		//crFILE* cr_file = cr_open("/thanos/thanos.gif", 'r');
+		//unsigned char *buffer2 = malloc(sizeof(unsigned char) * 2048 * 9 );
 		//fseek(data, cr_file -> pointer, SEEK_SET);
 		//fread(buffer2, sizeof(unsigned char), 2048, data);
 		//printf("%d\n", (unsigned int)buffer2[8] * 256 * 256 * 256 + (unsigned int)buffer2[9] * 256 * 256 + (unsigned int)buffer2[10] * 256 + (unsigned int)buffer2[11]);
@@ -65,8 +67,8 @@ int main(int argc, char *argv[])
 		//int b = cr_read(cr_file, &buffer2[2048], 2048);
 		//printf("%d %d\n", a, b);
 		//printf("%d\n", (unsigned int)buffer2[0] * 256 * 256 * 256 + (unsigned int)buffer2[1] * 256 * 256 + (unsigned int)buffer2[2] * 256 + (unsigned int)buffer2[3]);
-		free(buffer2);
-		free(cr_file);
+		//free(buffer2);
+		//free(cr_file);
 		//cr_ls("memes");
 		//unload_file("/memes/cmake.png", "cmake.png");
 		//cr_unload("/SSBS.mp3", "cancion.mp3");
@@ -118,6 +120,20 @@ int main(int argc, char *argv[])
 		cr_close(cr_file_2);
 		cr_close(cr_file_3);
 		cr_close(cr_file_4);
+
+	}else if (mode ==2){
+		crFILE* cr_file = cr_open("/memes/drake.jpeg", 'w');
+		printf("%s\n", "EN 1");
+		unsigned char *buffer = malloc(sizeof(unsigned char) * 5000);
+		printf("%s\n", "EN 2");
+
+		cr_read(cr_file, buffer, 5000);
+		printf("%s\n", "EN 3");
+
+		cr_write(cr_file, buffer, 5000);
+		printf("%s\n", "EN 4");
+
+		free(buffer);
 
 	}
 	return 0;
