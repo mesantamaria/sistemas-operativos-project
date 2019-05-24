@@ -147,7 +147,9 @@ int main(int argc, char *argv[])
 		cr_close(cr_file_7);
 	}else if (mode ==2){
 		//crFILE* cr_file = cr_open("/memes/drake.jpeg", 'w');
-		crFILE* cr_file = cr_open("/memes/pizza/gol.txt", 'w');
+
+		/*crFILE* cr_file = cr_open("prueba0.txt", 'w');
+>>>>>>> fix
 
 		FILE* data0 = fopen("prueba0.txt", "rb");
 
@@ -168,7 +170,7 @@ int main(int argc, char *argv[])
 		}
 
 		free(buffer);
-
+		*/
 
 
 	}
