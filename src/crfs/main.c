@@ -126,6 +126,15 @@ int main(int argc, char *argv[])
 		crFILE* cr_file_6 = cr_open("/memes/pizza/gol.txt", 'w');
 		printf("\nIntento abrir un archivo de una ruta que no existe\n");
 		crFILE* cr_file_7 = cr_open("/memes/picza/gol.txt", 'r');
+		printf("\nIntento crear un hardlink de '/memecillos/fortress.jpg' en '/memes/pizza'\n");
+		cr_hardlink("/memecillos/fortress.jpg", "/memes/pizza");
+		printf("\nIntento crear un hardlink de '/memes/fortress.jpg' en '/memecillos/pizza'\n");
+		cr_hardlink("/memes/fortress.jpg", "/memecillos/pizza");
+		printf("\nIntento crear un hardlink de '/memes/monos.jpg' en '/memes/pizza'\n");
+		cr_hardlink("/memes/monos.jpg", "/memes/pizza");
+		printf("\nIntento crear un hardlink de '/memes/fortress.jpg' en '/memes/pizza'\n");
+		cr_hardlink("/memes/fortress.jpg", "/memes/pizza");
+
 
 
 
