@@ -122,6 +122,10 @@ int main(int argc, char *argv[])
 		cr_ls("/memes/pizza");
 		printf("\nIntento abrir en modo 'r' un archivo no existente\n");
 		crFILE* cr_file_5 = cr_open("/memes/pizza/no_esta.jpg", 'r');
+		printf("\nIntento abrir en modo 'w' un archivo existente\n");
+		crFILE* cr_file_6 = cr_open("/memes/pizza/gol.txt", 'w');
+		printf("\nIntento abrir un archivo de una ruta que no existe\n");
+		crFILE* cr_file_7 = cr_open("/memes/picza/gol.txt", 'r');
 
 
 
@@ -131,7 +135,8 @@ int main(int argc, char *argv[])
 		cr_close(cr_file_3);
 		cr_close(cr_file_4);
 		cr_close(cr_file_5);
-
+		cr_close(cr_file_6);
+		cr_close(cr_file_7);
 	}else if (mode ==2){
 		crFILE* cr_file = cr_open("/memes/drake.jpeg", 'w');
 		printf("%s\n", "EN 1");
