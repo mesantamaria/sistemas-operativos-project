@@ -89,6 +89,9 @@ IIC2333 - Sistemas operativo y Redes \\}
 	\item \code{int cr\_read(crFILE* file\_desc, void* buffer, int nbytes)}
 	\item \code{int cr\_write(crFILE* file\_desc, void* buffer, int nbytes)}
 	\item \code{int cr\_close(crFILE* file\_desc)}
+	
+	Se preocupa de liberar los recursos pedidos por \code{cr\_open}.
+	
 	\item \code{int cr\_rm(char* path)}
 	
 	Función que se encarga de borrar el archivo referenciado por la ruta \code{path}.
