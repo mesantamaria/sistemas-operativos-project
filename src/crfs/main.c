@@ -147,21 +147,23 @@ int main(int argc, char *argv[])
 		cr_close(cr_file_7);
 	}else if (mode ==2){
 		//crFILE* cr_file = cr_open("/memes/drake.jpeg", 'w');
-		crFILE* cr_file = cr_open("prueba0.txt", 'w');
+		crFILE* cr_file = cr_open("/memes/pizza/gol.txt", 'w');
 
-		FILE* data0 = fopen("prueba0.txt", "rb")
+		FILE* data0 = fopen("prueba0.txt", "rb");
 
-		unsigned char *buffer = malloc(sizeof(unsigned char) * 5000);
+		unsigned char *buffer = malloc(sizeof(unsigned char) * 1000);
+		for(int i=0;i<1000;i++){
+			unsigned char aux;
 
-		for(int i=0;i<5000;i++){
-			buffer[i]=data0[i];
+			fscanf(data0, "%c", &aux);
+			buffer[i]=aux;
 		}
 
-		cr_write(cr_file, buffer, 5000);
+		cr_write(cr_file, buffer, 1000);
 
-		cr_read(cr_file, buffer, 5000);
+		cr_read(cr_file, buffer, 1000);
 
-		for(int i=0;i<5000; i++){
+		for(int i=0;i<1000; i++){
 			printf("%c", buffer[i]);
 		}
 
