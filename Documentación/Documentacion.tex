@@ -1,0 +1,105 @@
+% Plantilla para documentos LaTeX para enunciados
+% Por Pedro Pablo Aste Kompen - ppaste@uc.cl
+% Licencia Creative Commons BY-NC-SA 3.0
+% http://creativecommons.org/licenses/by-nc-sa/3.0/
+
+\documentclass[12pt]{article}
+
+% Margen de 1 pulgada por lado
+\usepackage{fullpage}
+% Incluye gráficas
+\usepackage{graphicx}
+% Packages para matemáticas, por la American Mathematical Society
+\usepackage{amssymb}
+\usepackage{amsmath}
+% Desactivar hyphenation
+\usepackage[none]{hyphenat}
+% Saltar entre párrafos - sin sangrías
+\usepackage{parskip}
+% Español y UTF-8
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+% Links en el documento
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\setlength{\headheight}{15.2pt}
+\setlength{\headsep}{5pt}
+\pagestyle{fancy}
+\usepackage{cite}
+\usepackage{listings}
+
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Exp}[1]{\mathcal{E}_{#1}}
+\newcommand{\List}[1]{\mathcal{L}_{#1}}
+\newcommand{\EN}{\Exp{\N}}
+\newcommand{\LN}{\List{\N}}
+
+\newcommand{\comment}[1]{}
+\newcommand{\lb}{\\~\\}
+\newcommand{\eop}{_{\square}}
+\newcommand{\hsig}{\hat{\sigma}}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\lra}{\leftrightarrow}
+
+\def\code#1{\texttt{#1}}
+\def\ccode#1{\begin{center}\texttt{#1}\end{center}}
+
+\begin{document}
+\thispagestyle{empty}
+% Membrete
+% PUC-ING-DCC-IIC1103
+\begin{minipage}{2.3cm}
+\includegraphics[width=2cm]{img/logo.pdf}
+\vspace{0.5cm} % Altura de la corona del logo, así el texto queda alineado verticalmente con el círculo del logo.
+\end{minipage}
+\begin{minipage}{\linewidth}
+\textsc{\raggedright \footnotesize
+Pontificia Universidad Católica de Chile \\
+Departamento de Ciencia de la Computación \\
+IIC2333 - Sistemas operativo y Redes \\}
+\end{minipage}
+
+
+% Titulo
+\begin{center}
+\vspace{-0.5cm}
+{\huge\bf Documentación SIGKILLERS}\\
+\vspace{0.2cm}
+\today\\
+\vspace{0.2cm}
+\footnotesize{Primer semestre 2019}\\
+\vspace{0.2cm}
+\end{center}
+
+\section*{Funciones}
+
+\subsection*{Generales}
+\begin{itemize}
+	\item \code{void cr\_mount(char* diskname)}
+	\item \code{void cr\_bitmap()}
+	\item \code{int cr\_exists(char* path)}
+	\item \code{void cr\_ls(char* path)}
+	\item \code{int cr\_mkdir(char* foldername)}
+\end{itemize}
+
+\subsection*{Archivos}
+\begin{itemize}
+	\item \code{crFILE* cr\_open(char* path, char mode)}
+	\item \code{int cr\_read(crFILE* file\_desc, void* buffer, int nbytes)}
+	\item \code{int cr\_write(crFILE* file\_desc, void* buffer, int nbytes)}
+	\item \code{int cr\_close(crFILE* file\_desc)}
+	\item \code{int cr\_rm(char* path)}
+	
+	Función que se encarga de borrar el archivo referenciado por la ruta \code{path}.
+
+	Solo borra el archivo si no quedan más \code{hardlinks} que apunten a el. En caso contrario, solo se borra la referencia en el \code{path} correspondiente.
+	
+	Si todo sale bien, se retorna \code{0}. En caso de que el \code{path} indicado no exista, se imprimirá un mensaje en consola indicando esto y se retornará \code{0}
+	\item \code{int cr\_hardlink(char* orig, char* dest)}
+	\item \code{int cr\_unload(char* orig, char* dest)}
+	\item \code{int cr\_load(char* orig)}
+\end{itemize}
+
+
+\end{document}
