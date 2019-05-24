@@ -56,8 +56,11 @@ int main(int argc, char *argv[])
 	}
 	else if (mode == 4)
 	{
-		crFILE* cr_file = cr_open("/thanos/thanos.gif", 'r');
+		crFILE* cr_file = cr_open("/germy.txt", 'r');
 		unsigned char *buffer2 = malloc(sizeof(unsigned char) * 2048 * 9 );
+		int a = cr_read(cr_file, buffer2, 2300);
+		int b = cr_read(cr_file, buffer2, 24);
+		printf("%d %d\n", a, b);
 		//fseek(data, cr_file -> pointer, SEEK_SET);
 		//fread(buffer2, sizeof(unsigned char), 2048, data);
 		//printf("%d\n", (unsigned int)buffer2[8] * 256 * 256 * 256 + (unsigned int)buffer2[9] * 256 * 256 + (unsigned int)buffer2[10] * 256 + (unsigned int)buffer2[11]);
@@ -70,15 +73,11 @@ int main(int argc, char *argv[])
 		//cr_ls("memes");
 		//unload_file("/memes/cmake.png", "cmake.png");
 		//cr_unload("/SSBS.mp3", "cancion.mp3");
-		cr_unload("/memes", "descargas");
+		//cr_unload("/memes", "descargas");
 		//cr_unload("/germy.txt", "germy.txt");
 		//cr_unload("/Program in C.mkv", "Program in C.mkv");
 		//cr_unload("/free.jpg", "free.jpg");
-		char* destination = (char*)malloc(sizeof(char) * 5);
-		char hola[3] = "hol";
-		strcpy(destination, hola);
-		free(destination);
-
+		
 	}
 	else if (mode == 1)
 	{
