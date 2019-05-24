@@ -16,13 +16,21 @@ int cr_rm(char* path) {
 	FILE* data = fopen(disk_path, "r+" );
 
 	unsigned int file_pointer = get_pointer_from_path(path, data);
-	unsigned int file_pointers = file_pointer + 8;
+	unsigned int hardlinks = get_pointer(file_pointer + 4, data) / 2048;
+	if (hardlinks == 1) {
+		unsigned int file_pointers = file_pointer + 8;
 
-	borrar_bloques_punteros(file_pointers, 500, data);
+		borrar_bloques_punteros(file_pointers, 500, data);
 
-	unsigned int indirect_pointers = file_pointers + 2000;
-	borrar_bloques_punteros_indirectos(indirect_pointers, 10, data);
-	borrar_bloque(file_pointer, data);
+		unsigned int indirect_pointers = file_pointers + 2000;
+		borrar_bloques_punteros_indirectos(indirect_pointers, 10, data);
+		borrar_bloque(file_pointer, data);
+	}
+	else {
+		hardlinks -= 1;
+		fseek(data, file_pointer + 4, SEEK_SET);
+		fwrite(&hardlinks, sizeof(unsigned int), 1, data);
+	}
 
 	borrar_puntero_directorio(path, data);
 
@@ -31,19 +39,19 @@ int cr_rm(char* path) {
 	return 1;
 }
 
-void borrar_bloques_punteros_indirectos(unsigned int punteros, unsigned int  n_punteros, FILE* data) {
+void borrar_bloques_punteros_indirectos(unsigned int punteros, unsigned int n_punteros, FILE* data) {
 	unsigned int pointer = 0;
 	int i, j;
 	for (i = 0; i < n_punteros; i++) {
 		pointer = get_pointer(punteros + 4 * i, data);
 		if (pointer != 0) {
-			borrar_bloques_punteros(pointer, 524, data);
+			borrar_bloques_punteros(pointer, 512, data);
 			borrar_bloque(pointer, data);
 		}
 	}
 }
 
-void borrar_bloques_punteros(unsigned int punteros, unsigned int  n_punteros, FILE* data) {
+void borrar_bloques_punteros(unsigned int punteros, unsigned int n_punteros, FILE* data) {
 	unsigned int pointer = 0;
 	int i, j;
 	for (i = 0; i < n_punteros; i++) {
@@ -63,6 +71,7 @@ void borrar_bloque(unsigned int pointer, FILE* data) {
 	fseek(data, pointer, SEEK_SET);
 	fwrite(buffer, sizeof(unsigned char), 2048, data);
 	free(buffer);
+	printf("%d\n", pointer/2048);
 	change_bitmap(pointer / 2048, 0, data);
 }
 
@@ -110,7 +119,7 @@ void borrar_puntero_directorio(char* path, FILE* data) {
 		{
 			free(buffer);
 			printf("La ruta no existe.\n");
-			return NULL;
+			return ;
 		}
 		folder = strtok(NULL, "/");
 	}
