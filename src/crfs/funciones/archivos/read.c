@@ -6,10 +6,26 @@
 #include "../globals.h"
 #include "read.h"
 
+
+int file_size(crFILE* file_desc){
+	FILE* data = fopen(disk_path, "rb");
+	unsigned char *buffer = malloc(sizeof(unsigned char) * 4);
+	fseek(data, file_desc -> pointer, SEEK_SET);
+	fread(buffer, sizeof(unsigned char), 4, data);
+	int tamano = (unsigned int)buffer[0] * 256 * 256 * 256 + (unsigned int)buffer[1] * 256 * 256
+			+ (unsigned int)buffer[2] * 256 + (unsigned int)buffer[3];
+
+	free(buffer);
+	fclose(data);
+	return tamano;
+}
+
+
 int cr_read(crFILE* file_desc, void* buffer, int nbytes) {
 	FILE* data = fopen(disk_path, "rb");
 	unsigned char *buffer2 = malloc(sizeof(unsigned char) * 2048);
 	unsigned char *buffer_bloque_indirecto = malloc(sizeof(unsigned char) * 2048);
+	int size = file_size(file_desc);
 
 	fseek(data, (file_desc -> pointer) + file_desc -> bytes_leidos, SEEK_SET);
 	int bytes_por_leer = nbytes;
@@ -17,6 +33,14 @@ int cr_read(crFILE* file_desc, void* buffer, int nbytes) {
 	bool indirect_block = false;
 	int byte_in_block = file_desc -> bytes_leidos % 2048;
 	int posicion_buffer = 0;
+	
+	if (nbytes > size + 2048 - file_desc -> bytes_leidos)  // Caso en que se quieren leer mas bytes de los que hay
+	{
+		printf("Se pide mas tamaño del que HAY\n");
+		bytes_por_leer = size + 2048 - file_desc -> bytes_leidos;
+		nbytes = size + 2048 - file_desc -> bytes_leidos;
+	}
+
 	if (block >= 501)  // Datos parten desde bloque 1 al 500
 	{	
 		indirect_block = true;
@@ -91,14 +115,6 @@ int cr_read(crFILE* file_desc, void* buffer, int nbytes) {
 			{
 				indirect_block = true;
 				block -= 501;
-			}
-		}
-		if (block == 1 && !indirect_block){ 
-			tamano = (unsigned int)&buffer[0] * 256 * 256 * 256 + (unsigned int)&buffer[1] * 256 * 256
-			+ (unsigned int)&buffer[2] * 256 + (unsigned int)&buffer[3];
-			if (tamano < bytes_por_leer)  // CASO EN QUE SE QUIEREN LEER MAS BYTES DE LOS QUE HAY
-			{
-				bytes_por_leer = tamano;
 			}
 		}
 	}
