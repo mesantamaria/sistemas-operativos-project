@@ -46,10 +46,13 @@ int main(int argc, char *argv[])
 
 	if (mode == 3)
 	{
+		cr_ls("");
 		printf("------- rm -------\n");
-		printf("Exists /free.jpg: %i\n", cr_exists("/memes/free.jpg"));
-		cr_rm("/memes/free.jpg");
-		printf("Exists /free.jpg: %i\n", cr_exists("/memes/free.jpg"));
+		//cr_bitmap();
+		printf("Exists file: %i\n", cr_exists("/Program in C.mkv"));
+		cr_rm("/Program in C.mkv");
+		cr_bitmap();
+		printf("Exists file: %i\n", cr_exists("/Program in C.mkv"));
 	}
 	else if (mode == 4)
 	{
@@ -86,7 +89,7 @@ int main(int argc, char *argv[])
 		printf("------- memes -------\n");
 		cr_ls("/memes");
 		crFILE* cr_file_2 = cr_open("/memes/pizza/gol.txt", 'w');
-		printf("------- memes/pizza -------\n");
+		printf("------- memes/pizza ------- remove\n");
 		cr_ls("/memes/pizza");
 		cr_rm("/memes/pizza/gol.txt");
 		printf("------- memes/pizza -------\n");
