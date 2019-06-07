@@ -7,6 +7,7 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include "math.h"
+#include "util.h"
 #include "init_server.h"
 
 
@@ -48,8 +49,30 @@ int* initializeServer(char* ip, int port){
   // Servidor queda bloqueado aquí hasta que alguien se conecte.
 	sockets[0] = accept(welcomeSocket, (struct sockaddr *) &serverStorage, &addr_size);
 	printf("Client %d has connected to me!\n", sockets[0]);
-	sockets[1] = accept(welcomeSocket, (struct sockaddr *) &serverStorage, &addr_size);
-	printf("Client %d has connected to me!\n", sockets[1]);
+
+	char* input = "What is your nickname?";
+	printf("%s\n", input);
+	// Calculamos el largo del mensaje ingresado por el humano
+	int msgLen = calculate_length(input); //no se debería enviar en el payload el caracter nulo al final del input. Ojo que al imprimir el string sin este caracter les aparecerá un simbolo raro al final
+	// Armamos el paquete a enviar
+	char package[2+msgLen];
+	// Definimos el ID, el payloadSize y copiamos el mensaje
+	package[0] = 3;
+	package[1] = msgLen;
+	strcpy(&package[2], input); //debería copiar hasta encontrar un caracter nulo, osea los msgLen caracteres
+
+	// Imprimamos el paquete para ver cómo quedó
+	sendMessage(sockets[0], package);
+
+
+ 	Package* msg = receiveMessage(sockets[0]);
+
+
+
+
+
+	//sockets[1] = accept(welcomeSocket, (struct sockaddr *) &serverStorage, &addr_size);
+	//printf("Client %d has connected to me!\n", sockets[1]);
 
 	return sockets;
 }

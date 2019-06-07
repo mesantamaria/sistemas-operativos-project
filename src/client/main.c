@@ -3,8 +3,8 @@
 #include <stdbool.h>
 #include <string.h>
 #include <math.h>
-#include "estructuras.h"
 #include "init_client.h"
+#include "util.h"
 
 
 
@@ -24,6 +24,17 @@ int main(int argc, char *argv[])
 	printf("%s %d\n", IP, PORT);
 
     socket = initializeClient(IP, PORT);
+
+
+    while(true)
+    {
+		Package * msg = receiveMessage(socket);
+		printf("packageeee: %i\n", msg -> ID);
+		printf("package payload: %s\n", msg -> payload);
+	}
+
+
+
 
 	return 0;
 }

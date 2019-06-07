@@ -4,7 +4,8 @@
 *.synctex
 *.out
 
-crfs
+client
+server
 *.mp3
 *.txt
 *.gif
