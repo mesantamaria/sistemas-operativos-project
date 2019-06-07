@@ -26,7 +26,6 @@ Client* client_init(int socket, char* nickname)
 {
 	Client* client = malloc(sizeof(Client));
 	client -> socket = socket;
-	//client -> nickname = nickname;
 	strcpy(client -> nickname, nickname);
 	client -> puntaje = 0;
 	return client;
