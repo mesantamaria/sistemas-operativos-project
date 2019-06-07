@@ -10,39 +10,3 @@
 | 4 | Maximiliano Santamaria | 1563714J  | [mesantamaria@uc.cl](mailto:mesantamaria@uc.cl)|
 
 ## TODO
-
-- [x] Estructura de Sistema de Archivos
-	- [x] Directorio 0.1
-	- [x] Indice 0.1
-	- [x] Indirecto 0.1
-	- [x] Datos 0.1
-	- [x] Bitmap 0.1
-- [x] Generales
-	- [x] `mount` 0.2
-	- [x] `bitmap` 0.2
-	- [x] `exists` 0.2
-	- [x] `ls` 0.2
-	- [x] `mkdir` 0.2
-- [ ] Archivos
-	- [x] `open` 0.4
-	- [x] `read` 0.4
-	- [ ] `write` **(Jahr)**
-	- [x] `close` 0.4
-	- [x] `rm` 0.4
-	- [x] `hardlink` 0.4
-	- [x] `unload` 0.8
-	- [ ] `load`
-- [ ] Archivos de prueba
-	- [ ] `mount`
-	- [ ] `bitmap`
-	- [ ] `exists`
-	- [ ] `ls`
-	- [ ] `mkdir`
-	- [ ] `open`
-	- [ ] `read`
-	- [ ] `write`
-	- [ ] `close`
-	- [ ] `rm`
-	- [ ] `hardlink`
-	- [ ] `unload`
-	- [ ] `load`
