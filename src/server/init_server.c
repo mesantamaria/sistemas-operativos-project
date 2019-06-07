@@ -7,7 +7,7 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include "math.h"
-#include "../util.c"
+#include "util.h"
 #include "init_server.h"
 
 
@@ -65,7 +65,7 @@ int* initializeServer(char* ip, int port){
 	sendMessage(sockets[0], package);
 
 
- 	char* msg = receiveMessage(sockets[0]);
+ 	Package* msg = receiveMessage(sockets[0]);
 
 
 

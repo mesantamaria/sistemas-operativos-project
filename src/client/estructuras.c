@@ -2,13 +2,20 @@
 #include <stdio.h>
 #include "estructuras.h"
 
-crFILE* crFILE_init(unsigned int pointer, char mode)
+Package* package_init(int ID, int payload_size)
 {
-	crFILE* cr_file = malloc(sizeof(crFILE));
+	Package* package = malloc(sizeof(Package));
 
-	cr_file -> pointer = pointer;
-	cr_file -> mode = mode;
-	cr_file -> bytes_leidos = 0;
+	package -> ID = ID;
+	package -> payload_size = payload_size;
 
-	return cr_file;
+	package -> payload = (char*) malloc(sizeof(char) * payload_size);
+	return package;
+}
+
+
+void free_package(Package* package)
+{
+	free(package -> payload);
+	free(package);
 }

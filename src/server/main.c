@@ -3,7 +3,7 @@
 #include <stdbool.h>
 #include <string.h>
 #include <math.h>
-#include "estructuras.h"
+#include "util.h"
 #include "init_server.h"
 #include "damas/tablero.h"
 #include "damas/utils.h"

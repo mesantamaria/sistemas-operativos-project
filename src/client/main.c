@@ -3,9 +3,8 @@
 #include <stdbool.h>
 #include <string.h>
 #include <math.h>
-#include "estructuras.h"
 #include "init_client.h"
-#include "../util.c"
+#include "util.h"
 
 
 
@@ -30,10 +29,8 @@ int main(int argc, char *argv[])
     while(true)
     {
 		Package * msg = receiveMessage(socket);
-		if (/* condition */)
-		{
-			/* code */
-		}
+		printf("packageeee: %i\n", msg -> ID);
+		printf("package payload: %s\n", msg -> payload);
 	}
 
 

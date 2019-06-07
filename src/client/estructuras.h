@@ -1,10 +1,11 @@
 #pragma once
 
-typedef struct crFILE
+typedef struct Package
 {
-	unsigned int pointer;
-	char mode;
-	int bytes_leidos;
-} crFILE;
+	int ID;
+	int payload_size;
+	char* payload;
+} Package;
 
-crFILE* crFILE_init(unsigned int pointer, char mode);
+Package* package_init(int ID, int payload_size);
+void free_package(Package* package);
