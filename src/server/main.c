@@ -1,3 +1,4 @@
+#include <unistd.h>  
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -27,9 +28,28 @@ int main(int argc, char *argv[])
 	    return 1;
 	}
 
+	int opt;
+	char* IP;
+	int PORT;  
+    while((opt = getopt(argc, argv, "i:p:l")) != -1)  
+    {  
+        switch(opt)  
+        {  
+            case 'i':
+            	IP = optarg;
+            	break;
+            case 'p':
+            	PORT = atoi(optarg);
+            	break;
+            case 'l':
+            	printf("True\n");  
+            	break;
+        }  
+    }  
+    
 	printf("I'm the Server\n");
-	char* IP = argv[2];
-	int PORT = atoi(argv[4]);
+	//char* IP = argv[2];
+	//int PORT = atoi(argv[4]);
 	printf("%s %d\n", IP, PORT);
 
 
