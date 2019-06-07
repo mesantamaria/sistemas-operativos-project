@@ -1,3 +1,3 @@
 #pragma once
 
-void connection_established(char *tipo);
+void connection_established(int socket);

@@ -27,8 +27,8 @@ Package* receiveMessage(int socket){
   //package -> payload = malloc(payloadSize);
   recv(socket, package -> payload, payloadSize, 0);
   printf("The Message is: %s\n", package -> payload);
-  printf("#############################\n");
-
+  printf("#############################\n");  
+  
   // Aqui se las ingenian para ver como retornan todo. Puden retornar el paquete y separarlo afuera, o retornar una struct.
   return package;
 }

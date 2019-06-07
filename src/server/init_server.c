@@ -8,6 +8,7 @@
 #include <netinet/in.h>
 #include "math.h"
 #include "util.h"
+#include "connection_established.h"
 #include "init_server.h"
 
 
@@ -49,6 +50,10 @@ int* initializeServer(char* ip, int port){
   // Servidor queda bloqueado aquí hasta que alguien se conecte.
 	sockets[0] = accept(welcomeSocket, (struct sockaddr *) &serverStorage, &addr_size);
 	printf("Client %d has connected to me!\n", sockets[0]);
+	Package* mensaje_conectado = receiveMessage(sockets[0]);
+	printf("%d\n", mensaje_conectado -> ID);
+	free_package(mensaje_conectado);
+	connection_established(sockets[0]);
 
 	char* input = "What is your nickname?";
 	printf("%s\n", input);
@@ -65,7 +70,7 @@ int* initializeServer(char* ip, int port){
 	sendMessage(sockets[0], package);
 
 
- 	Package* msg = receiveMessage(sockets[0]);
+ 	//Package* msg = receiveMessage(sockets[0]);
 
 
 
