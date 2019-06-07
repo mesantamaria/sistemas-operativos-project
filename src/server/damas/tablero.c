@@ -14,8 +14,9 @@ Tablero* tablero_init() {
 		t -> celdas[i] = malloc(sizeof(char)*8);
 		for (j = 0; j < 8; j++) {
 			celda = negra ? 'n' : 'b';
-			ficha = (i < 3 && ((i % 2 == 0 && j % 2 == 0 || i % 2 == 1 && j % 2 == 1))) ?
-				'x' : (i >= 5 && ((i % 2 == 0 && j % 2 == 0 || i % 2 == 1 && j % 2 == 1))) ? 'o' : celda;
+			ficha = i < 3 && color(i, j) == 'n' ?
+				'x' : i >= 5 && color(i, j) == 'n' ?
+				'o' : celda;
 			t -> celdas[i][j] = ficha;
 			negra = (negra + 1) % 2;
 		}
@@ -30,4 +31,8 @@ void destroy_tablero(Tablero* tablero) {
 	}
 	free(tablero -> celdas);
 	free(tablero);
+}
+
+char color(int i, int j) {
+	return i % 2 == 0 && j % 2 == 0 || i % 2 == 1 && j % 2 == 1 ? 'n' : 'b';
 }

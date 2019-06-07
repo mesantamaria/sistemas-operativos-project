@@ -7,6 +7,7 @@
 #include "init_server.h"
 #include "damas/tablero.h"
 #include "damas/utils.h"
+#include "damas/jugadas.h"
 
 
 
@@ -18,6 +19,9 @@ int main(int argc, char *argv[])
 	    printf("Modo de uso: ./server -i <ip_address> -p <tcp-port> -l\n");
 		Tablero* tablero = tablero_init();
 		print_tablero(tablero);
+		jugar(tablero, 5, 1, 4, 2);
+		jugar(tablero, 2, 0, 3, 1);
+		jugar(tablero, 4, 2, 2, 0);
 		destroy_tablero(tablero);
 	    return 1;
 	}

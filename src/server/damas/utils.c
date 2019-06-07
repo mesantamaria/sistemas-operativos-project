@@ -19,11 +19,11 @@ void print_tablero(Tablero* tablero) {
 	}
 	printf("+---\n");
 	for (i = 0; i < 8; i++) {
-		printf(" %d ", i);
+		printf(" %d ", i+1);
 		for (j = 0; j < 8; j++) {
 			printf("| %c ", to_unicode(tablero -> celdas[i][j]));
 		}
-		printf("| %d \n---", i);
+		printf("| %d \n---", i+1);
 		for (j = 0; j < 8; j++) {
 			printf("+---");
 		}
@@ -33,7 +33,7 @@ void print_tablero(Tablero* tablero) {
 	for (j = 0; j < 8; j++) {
 		printf("| %c ", letras[j]);
 	}
-	printf("|\n");
+	printf("|\n\n");
 }
 
 char to_unicode(char estado) {
