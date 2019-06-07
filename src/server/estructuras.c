@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include "estructuras.h"
 
-Package* package_init(int ID, int payload_size)
+Package* package_init(char ID, char payload_size)
 {
 	Package* package = malloc(sizeof(Package));
 

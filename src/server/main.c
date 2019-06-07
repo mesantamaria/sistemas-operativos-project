@@ -16,7 +16,6 @@ int main(int argc, char *argv[])
 	if (argc < 5)
 	{
 	    printf("Modo de uso: ./server -i <ip_address> -p <tcp-port> -l\n");
-<<<<<<< HEAD
 		Tablero* tablero = tablero_init();
 		print_tablero(tablero);
 		destroy_tablero(tablero);
@@ -31,18 +30,5 @@ int main(int argc, char *argv[])
 
 	sockets = initializeServer(IP, PORT);
 	free(sockets);
-=======
-	    return 0;
-	}
-
-	char *ip = argv[2];
-	int port = argv[4];
-	bool log = false;
-	if (argc == 6)
-	{
-		log = true;
-	}
-
->>>>>>> protocolos
 	return 0;
 }
