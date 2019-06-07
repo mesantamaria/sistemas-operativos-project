@@ -22,12 +22,16 @@ Package* receiveMessage(int socket){
   char payloadSize;
   recv(socket, &payloadSize, 1, 0);
   printf("The PayloadSize is: %d\n", payloadSize);
+
   Package* package = package_init(ID, payloadSize);
-  // Recibimos el resto del paquete, según el payloadSize. Lo guardamos en un puntero de caracteres, porque no es necesario modificarlo
-  //package -> payload = malloc(payloadSize);
-  recv(socket, package -> payload, payloadSize, 0);
-  printf("The Message is: %s\n", package -> payload);
-  printf("#############################\n");
+  if (payloadSize)
+  {
+    // Recibimos el resto del paquete, según el payloadSize. Lo guardamos en un puntero de caracteres, porque no es necesario modificarlo
+    //package -> payload = malloc(payloadSize);
+    recv(socket, package -> payload, payloadSize, 0);
+    printf("The Message is: %s\n", package -> payload);
+    printf("#############################\n");
+  }
 
   // Aqui se las ingenian para ver como retornan todo. Puden retornar el paquete y separarlo afuera, o retornar una struct.
   return package;

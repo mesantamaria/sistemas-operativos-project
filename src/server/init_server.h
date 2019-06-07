@@ -1,3 +1,3 @@
 #pragma once
 
-int* initializeServer(char* ip, int port);
+Client** initializeServer(char* ip, int port);

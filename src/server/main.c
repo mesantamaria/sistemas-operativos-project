@@ -27,12 +27,20 @@ int main(int argc, char *argv[])
 	}
 
 	printf("I'm the Server\n");
-	int* sockets;
 	char* IP = argv[2];
 	int PORT = atoi(argv[4]);
 	printf("%s %d\n", IP, PORT);
 
-	sockets = initializeServer(IP, PORT);
-	free(sockets);
+
+
+	Client** clients = initializeServer(IP, PORT);
+
+
+	while(true)
+	{
+
+	}
+
+
 	return 0;
 }

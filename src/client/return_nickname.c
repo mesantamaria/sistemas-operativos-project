@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "estructuras.h"
+#include "util.h"
 #include "return_nickname.h"
 
 void return_nickname(int socket){

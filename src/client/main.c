@@ -26,20 +26,29 @@ int main(int argc, char *argv[])
 	printf("%s %d\n", IP, PORT);
 
     socket = initializeClient(IP, PORT);
+
     start_connection(socket);
     Package * msg = receiveMessage(socket);
     free_package(msg);	
-    return 0;
+    //return 0;
 
+
+    Package * msg1 = receiveMessage(socket);
+	printf("%s\n", msg1 -> payload);
+	return_nickname(socket);
+
+	Package * nickname_oponente = receiveMessage(socket);
+	printf("Tu oponente es %s\n", nickname_oponente -> payload);
+
+	Package * conexion_exitosa = receiveMessage(socket);
+	if (conexion_exitosa -> ID == 6)
+	{
+		printf("La conexión ha sido exitosa.\n");
+	}
 
     while(true)
     {
-		Package * msg = receiveMessage(socket);
-		printf("%s\n", msg -> payload);
-		return_nickname(socket);
 
-		Package * nickname_oponente = receiveMessage(socket);
-		printf("Tu oponente es %s\n", nickname_oponente -> payload);
 	}
 
 

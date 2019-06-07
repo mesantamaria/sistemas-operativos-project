@@ -1,3 +1,3 @@
 #pragma once
 
-void start_game(char *tipo);
+void start_game(int socket);

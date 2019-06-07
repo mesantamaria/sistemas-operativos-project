@@ -30,7 +30,6 @@ void opponent_found(Client** clients){
 	package1[1] = msgLen2;
 	strcpy(&package1[2], input2); //debería copiar hasta encontrar un caracter nulo, osea los msgLen caracteres
 
-	printf("%i\n", clients[1] -> socket);
 	// Imprimamos el paquete para ver cómo quedó
 	sendMessage(clients[1] -> socket, package1);
 

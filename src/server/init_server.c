@@ -11,12 +11,14 @@
 #include "connection_established.h"
 #include "init_server.h"
 #include "ask_nickname.h"
+#include "opponent_found.h"
+#include "start_game.h"
 
 
 /* Función que inicializa el servidor en el port
 con ip */
-int* initializeServer(char* ip, int port){
-	int welcomeSocket, newSocket;
+Client** initializeServer(char* ip, int port){
+	int welcomeSocket;
 	struct sockaddr_in serverAddr;
 	struct sockaddr_storage serverStorage;
 	socklen_t addr_size;
@@ -63,6 +65,11 @@ int* initializeServer(char* ip, int port){
  	sockets[1] = accept(welcomeSocket, (struct sockaddr *) &serverStorage, &addr_size);
 	printf("Client %d has connected to me!\n", sockets[1]);
 
+	Package* mensaje_conectado1 = receiveMessage(sockets[1]);
+	printf("%d\n", mensaje_conectado1 -> ID);
+	free_package(mensaje_conectado1);
+	connection_established(sockets[1]);
+
 	ask_nickname(sockets[1]);
 
  	Package* nickname_2 = receiveMessage(sockets[1]);
@@ -71,12 +78,13 @@ int* initializeServer(char* ip, int port){
  	clients[0] = client_init(sockets[0], nickname_1 -> payload);
  	clients[1] = client_init(sockets[1], nickname_2 -> payload);
 
- 	for (int i = 0; i < 2; ++i)
- 	{
- 		printf("%s\n", clients[i] -> nickname);
- 	}
  	opponent_found(clients);
 
+ 	for (int i = 0; i < 2; ++i)
+ 	{
+ 		start_game(clients[i] -> socket);
+ 	}
 
-	return sockets;
+
+	return clients;
 }
