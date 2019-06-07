@@ -12,11 +12,12 @@
 
 /* Función que inicializa el servidor en el port
 con ip */
-int initializeServer(char* ip, int port){
+int* initializeServer(char* ip, int port){
 	int welcomeSocket, newSocket;
 	struct sockaddr_in serverAddr;
 	struct sockaddr_storage serverStorage;
 	socklen_t addr_size;
+	int* sockets = (int*) malloc(sizeof(int) * 2);
 
 	/*---- Creación del Socket. Se pasan 3 argumentos ----*/
 	/* 1) Internet domain 2) Stream socket 3) Default protocol (TCP en este caso) */
@@ -38,17 +39,17 @@ int initializeServer(char* ip, int port){
 	bind(welcomeSocket, (struct sockaddr *) &serverAddr, sizeof(serverAddr));
 
 	/*---- Listen del socket, con un máximo de 5 conexiones (solo como ejemplo) ----*/
-	if(listen(welcomeSocket, 5)==0)
+	if(listen(welcomeSocket, 2)==0)
 		printf("Waiting a client to connect...\n");
 	else
 		printf("Error\n");
 
 	addr_size = sizeof serverStorage;
   // Servidor queda bloqueado aquí hasta que alguien se conecte.
-	newSocket = accept(welcomeSocket, (struct sockaddr *) &serverStorage, &addr_size);
-	printf("Client %d has connected to me!\n", newSocket);
-	newSocket = accept(welcomeSocket, (struct sockaddr *) &serverStorage, &addr_size);
-	printf("Client %d has connected to me!\n", newSocket);
+	sockets[0] = accept(welcomeSocket, (struct sockaddr *) &serverStorage, &addr_size);
+	printf("Client %d has connected to me!\n", sockets[0]);
+	sockets[1] = accept(welcomeSocket, (struct sockaddr *) &serverStorage, &addr_size);
+	printf("Client %d has connected to me!\n", sockets[1]);
 
-	return newSocket;
+	return sockets;
 }

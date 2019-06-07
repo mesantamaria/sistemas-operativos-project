@@ -1,1 +1,1 @@
-int initializeServer(char* ip, int port);
+int* initializeServer(char* ip, int port);

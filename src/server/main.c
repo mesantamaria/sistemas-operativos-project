@@ -18,11 +18,12 @@ int main(int argc, char *argv[])
 	}
 
 	printf("I'm the Server\n");
-	int socket;
+	int* sockets;
 	char* IP = argv[2];
 	int PORT = atoi(argv[4]);
 	printf("%s %d\n", IP, PORT);
 
-    socket = initializeServer(IP, PORT);
+	sockets = initializeServer(IP, PORT);
+	free(sockets);
 	return 0;
 }
