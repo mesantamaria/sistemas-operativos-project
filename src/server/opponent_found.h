@@ -1,3 +1,3 @@
 #pragma once
 
-void opponent_found(char *nickname, char *tipo);
+void opponent_found(Client** clients);

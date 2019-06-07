@@ -5,6 +5,7 @@
 #include <math.h>
 #include "init_client.h"
 #include "util.h"
+#include "return_nickname.h"
 
 
 
@@ -29,8 +30,11 @@ int main(int argc, char *argv[])
     while(true)
     {
 		Package * msg = receiveMessage(socket);
-		printf("packageeee: %i\n", msg -> ID);
-		printf("package payload: %s\n", msg -> payload);
+		printf("%s\n", msg -> payload);
+		return_nickname(socket);
+
+		Package * nickname_oponente = receiveMessage(socket);
+		printf("Tu oponente es %s\n", nickname_oponente -> payload);
 	}
 
 

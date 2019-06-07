@@ -9,6 +9,7 @@
 #include "math.h"
 #include "util.h"
 #include "init_server.h"
+#include "ask_nickname.h"
 
 
 /* Función que inicializa el servidor en el port
@@ -50,29 +51,27 @@ int* initializeServer(char* ip, int port){
 	sockets[0] = accept(welcomeSocket, (struct sockaddr *) &serverStorage, &addr_size);
 	printf("Client %d has connected to me!\n", sockets[0]);
 
-	char* input = "What is your nickname?";
-	printf("%s\n", input);
-	// Calculamos el largo del mensaje ingresado por el humano
-	int msgLen = calculate_length(input); //no se debería enviar en el payload el caracter nulo al final del input. Ojo que al imprimir el string sin este caracter les aparecerá un simbolo raro al final
-	// Armamos el paquete a enviar
-	char package[2+msgLen];
-	// Definimos el ID, el payloadSize y copiamos el mensaje
-	package[0] = 3;
-	package[1] = msgLen;
-	strcpy(&package[2], input); //debería copiar hasta encontrar un caracter nulo, osea los msgLen caracteres
+	ask_nickname(sockets[0]);
 
-	// Imprimamos el paquete para ver cómo quedó
-	sendMessage(sockets[0], package);
+ 	Package* nickname_1 = receiveMessage(sockets[0]);
 
+ 	sockets[1] = accept(welcomeSocket, (struct sockaddr *) &serverStorage, &addr_size);
+	printf("Client %d has connected to me!\n", sockets[1]);
 
- 	Package* msg = receiveMessage(sockets[0]);
+	ask_nickname(sockets[1]);
 
+ 	Package* nickname_2 = receiveMessage(sockets[1]);
 
+ 	Client** clients = malloc(sizeof(Client*) * 2);
+ 	clients[0] = client_init(sockets[0], nickname_1 -> payload);
+ 	clients[1] = client_init(sockets[1], nickname_2 -> payload);
 
+ 	for (int i = 0; i < 2; ++i)
+ 	{
+ 		printf("%s\n", clients[i] -> nickname);
+ 	}
+ 	opponent_found(clients);
 
-
-	//sockets[1] = accept(welcomeSocket, (struct sockaddr *) &serverStorage, &addr_size);
-	//printf("Client %d has connected to me!\n", sockets[1]);
 
 	return sockets;
 }

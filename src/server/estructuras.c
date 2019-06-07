@@ -19,3 +19,17 @@ void free_package(Package* package)
 	free(package -> payload);
 	free(package);
 }
+
+Client* client_init(int socket, char* nickname)
+{
+	Client* client = malloc(sizeof(Client));
+	client -> socket = socket;
+	client -> nickname = nickname;
+	client -> puntaje = 0;
+	return client;
+}
+
+void free_client(Client* client)
+{
+	free(client);
+}
