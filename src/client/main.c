@@ -6,6 +6,7 @@
 #include "init_client.h"
 #include "util.h"
 #include "return_nickname.h"
+#include "start_connection.h"
 
 
 
@@ -25,6 +26,10 @@ int main(int argc, char *argv[])
 	printf("%s %d\n", IP, PORT);
 
     socket = initializeClient(IP, PORT);
+    start_connection(socket);
+    Package * msg = receiveMessage(socket);
+    free_package(msg);	
+    return 0;
 
 
     while(true)
