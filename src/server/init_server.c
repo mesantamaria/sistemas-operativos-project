@@ -75,8 +75,15 @@ Client** initializeServer(char* ip, int port){
  	Package* nickname_2 = receiveMessage(sockets[1]);
 
  	Client** clients = malloc(sizeof(Client*) * 2);
- 	clients[0] = client_init(sockets[0], nickname_1 -> payload);
- 	clients[1] = client_init(sockets[1], nickname_2 -> payload);
+ 	char name1[255];
+ 	char name2[255];
+ 	strcpy(name1, nickname_1 -> payload);
+ 	strcpy(name2, nickname_2 -> payload);
+ 	clients[0] = client_init(sockets[0], name1);
+ 	clients[1] = client_init(sockets[1], name2);
+ 	free_package(nickname_1);
+ 	free_package(nickname_2);
+ 	
 
  	opponent_found(clients);
 
@@ -85,6 +92,6 @@ Client** initializeServer(char* ip, int port){
  		start_game(clients[i] -> socket);
  	}
 
-
+ 	free(sockets);
 	return clients;
 }

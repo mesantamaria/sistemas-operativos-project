@@ -13,7 +13,7 @@ void free_package(Package* package);
 typedef struct  Client
 {
 	int socket;
-	char* nickname;
+	char nickname[255];
 	int puntaje;
 	char* color;
 } Client;

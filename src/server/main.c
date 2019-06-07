@@ -8,6 +8,7 @@
 #include "damas/tablero.h"
 #include "damas/utils.h"
 #include "damas/jugadas.h"
+#include "estructuras.h"
 
 
 
@@ -34,12 +35,17 @@ int main(int argc, char *argv[])
 
 
 	Client** clients = initializeServer(IP, PORT);
-
-
-	while(true)
+	for (int i = 0; i < 2; ++i)
 	{
-
+		free_client(clients[i]);
 	}
+	free(clients);
+
+
+	//while(true)
+	//{
+
+	//}
 
 
 	return 0;

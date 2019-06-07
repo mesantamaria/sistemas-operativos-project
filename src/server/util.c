@@ -32,6 +32,7 @@ Package* receiveMessage(int socket){
     else
     {
         recv(socket, package -> payload, payloadSize, 0);
+        package -> payload[payloadSize] = '\0';
         printf("The Message is: %s\n", package -> payload);
     }
     printf("#############################\n");
