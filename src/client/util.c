@@ -6,6 +6,8 @@
 #include <arpa/inet.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
+#include <wchar.h>
+#include <locale.h>
 #include "math.h"
 #include "util.h"
 
@@ -25,9 +27,9 @@ Package* receiveMessage(int socket){
     Package* package = package_init(ID, payloadSize);
     // Recibimos el resto del paquete, según el payloadSize. Lo guardamos en un puntero de caracteres, porque no es necesario modificarlo
     //package -> payload = malloc(payloadSize);
-    if (ID == 2)
+    if (!payloadSize)
     {
-        printf("Servidor envió paquete de Connection Established\n");
+        //printf("Servidor envió paquete de Connection Established\n");
     }
     else{
         recv(socket, package -> payload, payloadSize, 0);
@@ -70,4 +72,52 @@ void print_package(char * package){
     }
     printf("\n");
     */
+}
+
+void print_tablero(char* buffer, int ID){
+    int i, j;
+    char* letras = "ABCDEFGH";
+    printf("   ");
+    for (j = 0; j < 8; j++) {
+        printf("| %c ", letras[j]);
+    }
+    printf("|\n---");
+    for (j = 0; j < 8; j++) {
+        printf("+---");
+    }
+    printf("+---\n");
+    i = 0;
+    for (int counter = 0; counter < 8; counter++) {
+        if (ID == 2)
+        {
+            i = 7 - counter;
+        }
+        else i = counter;
+        printf(" %d ", i+1);
+        for (j = 0; j < 8; j++) {
+            printf("| %c ", to_unicode(buffer[j +  8*i]));
+        }
+        printf("| %d \n---", i+1);
+        for (j = 0; j < 8; j++) {
+            printf("+---");
+        }
+        printf("+---\n");
+    }
+    printf("   ");
+    for (j = 0; j < 8; j++) {
+        printf("| %c ", letras[j]);
+    }
+    printf("|\n\n");
+}
+
+char to_unicode(char estado) {
+    switch(estado) {
+        case 'b': return ' ';
+        case 'n': return ' ';
+        case 'o': return 'o';
+        case 'O': return 'O';
+        case 'x': return 'x';
+        case 'X': return 'X';
+        default: return ' ';
+    }
 }

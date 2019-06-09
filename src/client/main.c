@@ -76,15 +76,32 @@ int main(int argc, char *argv[])
 
 	Package* whos_first_package = receiveMessage(socket);
 	printf("Tu ID es %d\n", whos_first_package -> payload[0]);
-	
+	int ID = (int) whos_first_package -> payload[0];
+	free_package(whos_first_package);
 
-	if (whos_first_package -> payload[0] == 1)
+
+
+
+	if (ID == 1)
 	{
+		Package* board_package = receiveMessage(socket);
+		print_tablero(board_package -> payload, ID);
+		free_package(board_package);
 		send_move(socket);
+		Package* ok_package = receiveMessage(socket);
+		if (ok_package -> ID == 12)
+		{
+			printf("Movida exitosa\n");
+		}
+		free_package(ok_package);
+		
+		
+	}
+	else{
+		
 	}
 
 
-	free_package(whos_first_package);
     while(true)
     {
 

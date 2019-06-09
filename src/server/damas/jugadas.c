@@ -92,12 +92,18 @@ void ejecutar_jugada(Jugada* jugada, Tablero* tablero) {
 	}
 }
 
-void jugar(Tablero* tablero, int i_pieza, int j_pieza, int i_destino, int j_destino) {
+int jugar(Tablero* tablero, int i_pieza, int j_pieza, int i_destino, int j_destino) {
 	// i = fila, j = columna
 	Jugada* jugada = jugada_init(i_pieza, j_pieza, i_destino, j_destino);
 	if (jugada_valida(jugada, tablero)) {
 		ejecutar_jugada(jugada, tablero);
+		destroy_jugada(jugada);
+		print_tablero(tablero);
+		return 1;
 	}
-	destroy_jugada(jugada);
-	print_tablero(tablero);
+	else {	
+		destroy_jugada(jugada);
+		//print_tablero(tablero);
+		return 0;
+	}
 }

@@ -25,9 +25,9 @@ Package* receiveMessage(int socket){
     Package* package = package_init(ID, payloadSize);
     // Recibimos el resto del paquete, según el payloadSize. Lo guardamos en un puntero de caracteres, porque no es necesario modificarlo
     //package -> payload = malloc(payloadSize);
-    if (ID == 1)
+    if (!payloadSize)
     {
-        printf("Cliente %d envió paquete de Start Connection\n", socket);;
+        //printf("Cliente %d envió paquete de Start Connection\n", socket);;
     }
     else
     {

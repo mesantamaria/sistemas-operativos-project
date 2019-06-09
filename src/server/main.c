@@ -13,6 +13,9 @@
 #include "estructuras.h"
 #include "scores.h"
 #include "whos_first.h"
+#include "board_state.h"
+#include "ok_move.h"
+
 
 
 
@@ -59,16 +62,19 @@ int main(int argc, char *argv[])
 	printf("%s %d\n", IP, PORT);
 
 
-
 	Client** clients = initializeServer(IP, PORT);
 	scores(clients);
 	int start_player = whos_first(clients);
 	Tablero* tablero = tablero_init();
 	print_tablero(tablero);
+	board_state(clients[start_player], tablero);
 	Package* move_package = receiveMessage(clients[start_player] -> socket);
-	printf("Posiciones inicio %s |\n", move_package -> payload);
+	//printf("Posiciones inicio %s |\n", move_package -> payload);
 	
-	jugar(tablero, move_package -> payload[1] - 49, move_package -> payload[0] - 65, move_package -> payload[3] - 49, move_package -> payload[2] - 65);
+	if (jugar(tablero, move_package -> payload[1] - 49, move_package -> payload[0] - 65, move_package -> payload[3] - 49, move_package -> payload[2] - 65)){
+		ok_move(clients[start_player] -> socket);
+
+	}
 	free_package(move_package);
 
 
