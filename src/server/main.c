@@ -50,7 +50,7 @@ int main(int argc, char *argv[])
     }  
     
 	printf("I'm the Server\n");
-
+	
 	//char* IP = argv[2];
 	//int PORT = atoi(argv[4]);
 	printf("%s %d\n", IP, PORT);
@@ -59,9 +59,20 @@ int main(int argc, char *argv[])
 
 	Client** clients = initializeServer(IP, PORT);
 	scores(clients);
-	whos_first(clients);
+	int start_player = whos_first(clients);
+	Tablero* tablero = tablero_init();
+	print_tablero(tablero);
+	Package* move_package = receiveMessage(clients[start_player] -> socket);
+	printf("Posiciones inicio %s |\n", move_package -> payload);
+	
+	jugar(tablero, move_package -> payload[1] - 49, move_package -> payload[0] - 65, move_package -> payload[3] - 49, move_package -> payload[2] - 65);
+	free_package(move_package);
+
+
+
 
 	// Liberamos todo
+	destroy_tablero(tablero);
 	for (int i = 0; i < 2; ++i)
 	{
 		free_client(clients[i]);

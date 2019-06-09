@@ -8,6 +8,7 @@
 #include "util.h"
 #include "return_nickname.h"
 #include "start_connection.h"
+#include "send_move.h"
 
 
 
@@ -75,8 +76,15 @@ int main(int argc, char *argv[])
 
 	Package* whos_first_package = receiveMessage(socket);
 	printf("Tu ID es %d\n", whos_first_package -> payload[0]);
-	free_package(whos_first_package);
+	
 
+	if (whos_first_package -> payload[0] == 1)
+	{
+		send_move(socket);
+	}
+
+
+	free_package(whos_first_package);
     while(true)
     {
 
