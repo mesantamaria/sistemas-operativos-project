@@ -18,6 +18,7 @@ typedef struct  Client
 	char nickname[255];
 	int puntaje;
 	char* color;
+	int ID;  // 1 o 2
 } Client;
 
 Client* client_init(int socket, char* nickname);

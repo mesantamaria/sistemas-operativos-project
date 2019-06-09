@@ -27,6 +27,7 @@ Client* client_init(int socket, char* nickname)
 	client -> socket = socket;
 	strcpy(client -> nickname, nickname);
 	client -> puntaje = 0;
+	client -> ID = 0;
 	return client;
 }
 

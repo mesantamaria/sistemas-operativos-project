@@ -1,5 +1,6 @@
 #include <unistd.h>  
 #include <stdio.h>
+#include <time.h>
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
@@ -10,7 +11,8 @@
 #include "damas/utils.h"
 #include "damas/jugadas.h"
 #include "estructuras.h"
-
+#include "scores.h"
+#include "whos_first.h"
 
 
 
@@ -48,6 +50,7 @@ int main(int argc, char *argv[])
     }  
     
 	printf("I'm the Server\n");
+
 	//char* IP = argv[2];
 	//int PORT = atoi(argv[4]);
 	printf("%s %d\n", IP, PORT);
@@ -55,6 +58,10 @@ int main(int argc, char *argv[])
 
 
 	Client** clients = initializeServer(IP, PORT);
+	scores(clients);
+	whos_first(clients);
+
+	// Liberamos todo
 	for (int i = 0; i < 2; ++i)
 	{
 		free_client(clients[i]);

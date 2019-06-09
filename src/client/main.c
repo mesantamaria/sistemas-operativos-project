@@ -65,9 +65,17 @@ int main(int argc, char *argv[])
 	Package * conexion_exitosa = receiveMessage(socket);
 	if (conexion_exitosa -> ID == 6)
 	{
-		printf("La conexión ha sido exitosa.\n");
+		printf("La conexión ha sido exitosa. El juego ha comenzado\n");
 	}
 	free_package(conexion_exitosa);	
+
+	Package* scores_package = receiveMessage(socket);
+	printf("Tu puntaje actual es: %d | El puntaje de tu contrincante es: %d\n", scores_package -> payload[0], scores_package -> payload[1]);
+	free_package(scores_package);
+
+	Package* whos_first_package = receiveMessage(socket);
+	printf("Tu ID es %d\n", whos_first_package -> payload[0]);
+	free_package(whos_first_package);
 
     while(true)
     {
