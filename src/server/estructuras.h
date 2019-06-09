@@ -9,3 +9,16 @@ typedef struct Package
 
 Package* package_init(char ID, char payload_size);
 void free_package(Package* package);
+
+typedef struct  Client
+{
+	int socket;
+	char nickname[255];
+	int puntaje;
+	char* color;
+	int ID;  // 1 o 2
+
+} Client;
+
+Client* client_init(int socket, char* nickname);
+void free_client(Client* client);

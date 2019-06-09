@@ -1,3 +1,3 @@
 #pragma once
 
-void ask_nickname(char *tipo);
+void ask_nickname(int socket);

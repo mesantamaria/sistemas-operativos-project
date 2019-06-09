@@ -37,5 +37,5 @@ int initializeClient(char* ip, int port){
     else printf("Error connecting to server. Exit code: %d (probablemente el puerto está tomado. Solución: esperar unos segundos, cambiar el puerto o configurar el socket)\n", ret);
     // RECUERDEN MANEJAR ERRORES EN CADA FUNCIÓN EXTERNA!!
 
-return clientSocket;
+    return clientSocket;
 }

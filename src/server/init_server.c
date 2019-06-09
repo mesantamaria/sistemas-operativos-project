@@ -8,13 +8,17 @@
 #include <netinet/in.h>
 #include "math.h"
 #include "util.h"
+#include "connection_established.h"
 #include "init_server.h"
+#include "ask_nickname.h"
+#include "opponent_found.h"
+#include "start_game.h"
 
 
 /* Función que inicializa el servidor en el port
 con ip */
-int* initializeServer(char* ip, int port){
-	int welcomeSocket, newSocket;
+Client** initializeServer(char* ip, int port){
+	int welcomeSocket;
 	struct sockaddr_in serverAddr;
 	struct sockaddr_storage serverStorage;
 	socklen_t addr_size;
@@ -49,30 +53,45 @@ int* initializeServer(char* ip, int port){
   // Servidor queda bloqueado aquí hasta que alguien se conecte.
 	sockets[0] = accept(welcomeSocket, (struct sockaddr *) &serverStorage, &addr_size);
 	printf("Client %d has connected to me!\n", sockets[0]);
+	Package* mensaje_conectado = receiveMessage(sockets[0]);
+	printf("%d\n", mensaje_conectado -> ID);
+	free_package(mensaje_conectado);
+	connection_established(sockets[0]);
 
-	char* input = "What is your nickname?";
-	printf("%s\n", input);
-	// Calculamos el largo del mensaje ingresado por el humano
-	int msgLen = calculate_length(input); //no se debería enviar en el payload el caracter nulo al final del input. Ojo que al imprimir el string sin este caracter les aparecerá un simbolo raro al final
-	// Armamos el paquete a enviar
-	char package[2+msgLen];
-	// Definimos el ID, el payloadSize y copiamos el mensaje
-	package[0] = 3;
-	package[1] = msgLen;
-	strcpy(&package[2], input); //debería copiar hasta encontrar un caracter nulo, osea los msgLen caracteres
+	ask_nickname(sockets[0]);
 
-	// Imprimamos el paquete para ver cómo quedó
-	sendMessage(sockets[0], package);
+ 	Package* nickname_1 = receiveMessage(sockets[0]);
 
+ 	sockets[1] = accept(welcomeSocket, (struct sockaddr *) &serverStorage, &addr_size);
+	printf("Client %d has connected to me!\n", sockets[1]);
 
- 	Package* msg = receiveMessage(sockets[0]);
+	Package* mensaje_conectado1 = receiveMessage(sockets[1]);
+	printf("%d\n", mensaje_conectado1 -> ID);
+	free_package(mensaje_conectado1);
+	connection_established(sockets[1]);
 
+	ask_nickname(sockets[1]);
 
+ 	Package* nickname_2 = receiveMessage(sockets[1]);
 
+ 	Client** clients = malloc(sizeof(Client*) * 2);
+ 	//char name1[255];
+ 	//char name2[255];
+ 	//strcpy(name1, nickname_1 -> payload);
+ 	//strcpy(name2, nickname_2 -> payload);
+ 	clients[0] = client_init(sockets[0], nickname_1 -> payload);
+ 	clients[1] = client_init(sockets[1], nickname_2 -> payload);
+ 	free_package(nickname_1);
+ 	free_package(nickname_2);
+ 	
 
+ 	opponent_found(clients);
 
-	//sockets[1] = accept(welcomeSocket, (struct sockaddr *) &serverStorage, &addr_size);
-	//printf("Client %d has connected to me!\n", sockets[1]);
+ 	for (int i = 0; i < 2; ++i)
+ 	{
+ 		start_game(clients[i] -> socket);
+ 	}
 
-	return sockets;
+ 	free(sockets);
+	return clients;
 }

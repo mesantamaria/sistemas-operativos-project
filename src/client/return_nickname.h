@@ -1,3 +1,3 @@
 #pragma once
 
-void return_nickname(char *nickname);
+void return_nickname(int socket);
