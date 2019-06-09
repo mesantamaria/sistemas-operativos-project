@@ -22,6 +22,9 @@ int main(int argc, char *argv[])
 		jugar(tablero, 5, 1, 4, 2);
 		jugar(tablero, 2, 0, 3, 1);
 		jugar(tablero, 4, 2, 2, 0);
+		char* buffer[64];
+		tablero_to_char(buffer, tablero);
+		printf("%s\n", buffer);
 		destroy_tablero(tablero);
 	    return 1;
 	}
