@@ -41,8 +41,8 @@ char color(int i, int j) {
 
 void tablero_to_char(char* buffer, Tablero* tablero) {
 	int i;
-	strcpy(buffer, "");
-	for (i = 0; i < 8; i++) {
+	strcpy(buffer, tablero -> celdas[0]);
+	for (i = 1; i < 8; i++) {
 		strcat(buffer, tablero -> celdas[i]);
 	}
 }

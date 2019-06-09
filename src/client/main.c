@@ -70,45 +70,48 @@ int main(int argc, char *argv[])
 	}
 	free_package(conexion_exitosa);	
 
-	Package* scores_package = receiveMessage(socket);
-	printf("Tu puntaje actual es: %d | El puntaje de tu contrincante es: %d\n", scores_package -> payload[0], scores_package -> payload[1]);
-	free_package(scores_package);
-
-	Package* whos_first_package = receiveMessage(socket);
-	printf("Tu ID es %d\n", whos_first_package -> payload[0]);
-	int ID = (int) whos_first_package -> payload[0];
-	free_package(whos_first_package);
-
-
-
-
-	if (ID == 1)
-	{
-		Package* board_package = receiveMessage(socket);
-		print_tablero(board_package -> payload, ID);
-		free_package(board_package);
-		send_move(socket);
-		Package* ok_package = receiveMessage(socket);
-		if (ok_package -> ID == 12)
+	
+	int ID;
+	while(true){
+		Package* package = receiveMessage(socket);
+		printf("%d\n", package -> ID);
+		if (package -> ID == 7)
+		{
+			printf("Tu puntaje actual es: %d | El puntaje de tu contrincante es: %d\n", package -> payload[0], package -> payload[1]);
+		}
+		else if (package -> ID == 8)
+		{
+			printf("Tu ID es %d\n", package -> payload[0]);
+			ID = (int) package -> payload[0];
+			
+		}
+		else if (package -> ID == 9)
+		{
+			print_tablero(package -> payload, ID);
+			send_move(socket);
+		}
+		else if (package -> ID == 11)
+		{
+			printf("Jugada no válida. Inténtalo de nuevo\n");
+		}
+		else if (package -> ID == 12)
 		{
 			printf("Movida exitosa\n");
 		}
-		free_package(ok_package);
+		else if (package -> ID == 13)
+		{
+			printf("Se acabo el juego\n");
+			free_package(package);
+			break;
+		}
+		free_package(package);
 		
-		
-	}
-	else{
-		
-	}
-
-
-    while(true)
-    {
 
 	}
-
-
-
 
 	return 0;
+	
+
+
+
 }

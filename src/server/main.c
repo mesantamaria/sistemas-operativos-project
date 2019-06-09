@@ -15,6 +15,8 @@
 #include "whos_first.h"
 #include "board_state.h"
 #include "ok_move.h"
+#include "end_game.h"
+#include "error_move.h"
 
 
 
@@ -67,18 +69,30 @@ int main(int argc, char *argv[])
 	int start_player = whos_first(clients);
 	Tablero* tablero = tablero_init();
 	print_tablero(tablero);
-	board_state(clients[start_player], tablero);
-	Package* move_package = receiveMessage(clients[start_player] -> socket);
-	//printf("Posiciones inicio %s |\n", move_package -> payload);
-	
-	if (jugar(tablero, move_package -> payload[1] - 49, move_package -> payload[0] - 65, move_package -> payload[3] - 49, move_package -> payload[2] - 65)){
-		ok_move(clients[start_player] -> socket);
-
+	int j = 0;
+	while(j < 2){  // Número de rondas. Cambiar a True para simular juego completo
+		while(true){
+			board_state(clients[start_player], tablero);
+			Package* move_package = receiveMessage(clients[start_player] -> socket);
+			//printf("Posiciones inicio %s |\n", move_package -> payload);
+		
+			if (jugar(tablero, move_package -> payload[1] - 49, move_package -> payload[0] - 65, move_package -> payload[3] - 49, move_package -> payload[2] - 65)){
+				ok_move(clients[start_player] -> socket);
+				free_package(move_package);
+				break;
+			}
+			else {
+				error_move(clients[start_player] -> socket);
+				free_package(move_package);
+			}
+		}
+		scores(clients);
+		start_player = (start_player + 1) % 2;
+		j ++;
 	}
-	free_package(move_package);
+	
 
-
-
+	end_game(clients);
 
 	// Liberamos todo
 	destroy_tablero(tablero);
