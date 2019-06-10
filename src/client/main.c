@@ -9,6 +9,7 @@
 #include "return_nickname.h"
 #include "start_connection.h"
 #include "send_move.h"
+#include "send_message.h"
 
 
 
@@ -88,7 +89,22 @@ int main(int argc, char *argv[])
 		else if (package -> ID == 9)
 		{
 			print_tablero(package -> payload, ID);
-			send_move(socket);
+			printf("¿Qué desea hacer?\n");
+			printf("1 Jugar\n");
+			printf("2 Enviar mensaje\n");
+			printf("Ingrese el número de su opción: \n");
+			int input;
+			scanf("%d", &input);
+			printf("\n");
+			printf("   Ingresaste: %i\n", input);
+			if (input == 1)
+			{
+				send_move(socket);	
+			}
+			else if (input == 2)
+			{
+				send_message(socket);
+			}
 		}
 		else if (package -> ID == 11)
 		{
@@ -103,6 +119,11 @@ int main(int argc, char *argv[])
 			printf("Se acabo el juego\n");
 			free_package(package);
 			break;
+		}
+		else if (package -> ID == 20)
+		{
+			printf("Mensaje de tu oponente:\n");
+			printf("%s\n", package -> payload);
 		}
 		free_package(package);
 		
