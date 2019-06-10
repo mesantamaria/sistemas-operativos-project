@@ -1,4 +1,4 @@
-#include <unistd.h>  
+#include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -24,11 +24,11 @@ int main(int argc, char *argv[])
 	}
 	int opt;
 	char* IP;
-	int PORT;  
-    while((opt = getopt(argc, argv, "i:p:l")) != -1)  
-    {  
-        switch(opt)  
-        {  
+	int PORT;
+    while((opt = getopt(argc, argv, "i:p:l")) != -1)
+    {
+        switch(opt)
+        {
             case 'i':
             	IP = optarg;
             	break;
@@ -36,10 +36,10 @@ int main(int argc, char *argv[])
             	PORT = atoi(optarg);
             	break;
             case 'l':
-            	printf("True\n");  
+            	printf("True\n");
             	break;
-        }  
-    }  
+        }
+    }
 
 	printf("I'm a Client\n");
 	int socket;
@@ -51,7 +51,7 @@ int main(int argc, char *argv[])
 
     start_connection(socket);
     Package * msg = receiveMessage(socket);
-    free_package(msg);	
+    free_package(msg);
     //return 0;
 
 
@@ -62,7 +62,7 @@ int main(int argc, char *argv[])
 
 	Package * nickname_oponente = receiveMessage(socket);
 	printf("Tu oponente es %s\n", nickname_oponente -> payload);
-	free_package(nickname_oponente);	
+	free_package(nickname_oponente);
 
 
 	Package * conexion_exitosa = receiveMessage(socket);
@@ -70,9 +70,9 @@ int main(int argc, char *argv[])
 	{
 		printf("La conexión ha sido exitosa. El juego ha comenzado\n");
 	}
-	free_package(conexion_exitosa);	
+	free_package(conexion_exitosa);
 
-	
+
 	int ID;
 	while(true){
 		Package* package = receiveMessage(socket);
@@ -85,7 +85,7 @@ int main(int argc, char *argv[])
 		{
 			printf("Tu ID es %d\n", package -> payload[0]);
 			ID = (int) package -> payload[0];
-			
+
 		}
 		else if (package -> ID == 9)
 		{
@@ -101,7 +101,7 @@ int main(int argc, char *argv[])
 			printf("   Ingresaste: %i\n", input);
 			if (input == 1)
 			{
-				send_move(socket);	
+				send_move(socket);
 			}
 			else if (input == 2)
 			{
@@ -123,26 +123,32 @@ int main(int argc, char *argv[])
 		else if (package -> ID == 13)
 		{
 			printf("Se acabo el juego\n");
-			free_package(package);
+			//free_package(package);
 			break;
 		}
 		else if (package -> ID == 17)
 		{
 			printf("Juego desconectado\n");
-			free_package(package);
+			//free_package(package);
 			break;
 		}
+		else if (package -> ID == 18)
+		{
+			printf("El package enviado estaba corrupto\n");
+			//free_package(package);
+		}
+
 		else if (package -> ID == 20)
 		{
 			printf("Mensaje de tu oponente:\n");
 			printf("%s\n", package -> payload);
 		}
 		free_package(package);
-		
+
 	}
 
 	return 0;
-	
+
 
 
 

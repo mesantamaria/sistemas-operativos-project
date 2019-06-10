@@ -10,6 +10,7 @@
 #include "util.h"
 #include "log.h"
 #include "estructuras.h"
+#include "error_bad_package.h"
 
 
 Package* receiveMessage(int socket){
@@ -20,6 +21,25 @@ Package* receiveMessage(int socket){
     printf("\n####### Paquete recibido ####\n");
     printf("The ID is: %d\n", ID); // lo imprimimos como número porque esa es la interpretación que acordamos
 
+    int contador_id = 0;
+
+    for(int i=1;i<21;i++)
+    {
+      if(ID==i)
+      {
+        contador_id++;
+        break;
+      }
+    }
+    if(ID==64)
+    {
+      contador_id++;
+    }
+    if(contador_id==0)
+    {
+      error_bad_package(socket);
+    }
+
     // Recibimos el payload size en el siguiente byte
     char payloadSize;
     recv(socket, &payloadSize, 1, 0);
@@ -27,6 +47,41 @@ Package* receiveMessage(int socket){
     Package* package = package_init(ID, payloadSize);
     // Recibimos el resto del paquete, según el payloadSize. Lo guardamos en un puntero de caracteres, porque no es necesario modificarlo
     //package -> payload = malloc(payloadSize);
+    if((ID==1 || ID==2 || ID==3 || ID==6 || ID==11||ID==12||ID==13||ID==15||ID==17||ID==18) && !(payloadSize==0))
+    {
+      error_bad_package(socket);
+
+    }
+    else if(ID==7 && !(payloadSize==2))
+    {
+      error_bad_package(socket);
+
+    }
+    else if(ID==8 && !(payloadSize==1))
+    {
+      error_bad_package(socket);
+
+    }
+    else if(ID==9 && !(payloadSize==64))
+    {
+      error_bad_package(socket);
+
+    }
+    else if(ID==10 && !(payloadSize==4))
+    {
+      error_bad_package(socket);
+
+    }
+    else if(ID==14 && !(payloadSize==1))
+    {
+      error_bad_package(socket);
+
+    }
+    else if(ID==16 && !(payloadSize==1))
+    {
+      error_bad_package(socket);
+    }
+
     if (!payloadSize)
     {
         //printf("Cliente %d envió paquete de Start Connection\n", socket);;
