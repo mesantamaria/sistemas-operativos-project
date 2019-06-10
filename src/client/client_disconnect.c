@@ -16,9 +16,9 @@ void client_disconnect(int socket){
 	char package[2];
 	package[0] = 17;
 	package[1] = 0;
-	sendMessage(socket, package);
+	//sendMessage(socket, package);
 
-	//send(socket, package, 2, 0);
+	send(socket, package, 2, 0);
 
 
 	//send_package(package,"s");
