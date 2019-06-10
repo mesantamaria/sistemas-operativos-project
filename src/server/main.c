@@ -32,13 +32,13 @@ int main(int argc, char *argv[])
 	    printf("Modo de uso: ./server -i <ip_address> -p <tcp-port> -l\n");
 		Tablero* tablero = tablero_init(0);
 		print_tablero(tablero);
-		jugar(tablero, 5, 1, 4, 2);
+		//jugar(tablero, 5, 1, 4, 2);
 		printf("Puntaje 1 = %d\n", puntaje(tablero, 0));
 		printf("Puntaje 2 = %d\n", puntaje(tablero, 1));
-		jugar(tablero, 2, 0, 3, 1);
+		//jugar(tablero, 2, 0, 3, 1);
 		printf("Puntaje 1 = %d\n", puntaje(tablero, 0));
 		printf("Puntaje 2 = %d\n", puntaje(tablero, 1));
-		jugar(tablero, 4, 2, 2, 0);
+		//jugar(tablero, 4, 2, 2, 0);
 		printf("Puntaje 1 = %d\n", puntaje(tablero, 0));
 		printf("Puntaje 2 = %d\n", puntaje(tablero, 1));
 		char respuesta[4];
