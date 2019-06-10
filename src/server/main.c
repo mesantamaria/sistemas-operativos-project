@@ -20,6 +20,7 @@
 #include "spread_message.h"
 #include "log.h"
 #include "server_disconnect.h"
+#include "game_winner.h"
 
 
 
@@ -29,14 +30,17 @@ int main(int argc, char *argv[])
 	if (argc < 5)
 	{
 	    printf("Modo de uso: ./server -i <ip_address> -p <tcp-port> -l\n");
-		Tablero* tablero = tablero_init();
+		Tablero* tablero = tablero_init(0);
 		print_tablero(tablero);
 		jugar(tablero, 5, 1, 4, 2);
+		printf("Puntaje 1 = %d\n", puntaje(tablero, 0));
+		printf("Puntaje 2 = %d\n", puntaje(tablero, 1));
 		jugar(tablero, 2, 0, 3, 1);
+		printf("Puntaje 1 = %d\n", puntaje(tablero, 0));
+		printf("Puntaje 2 = %d\n", puntaje(tablero, 1));
 		jugar(tablero, 4, 2, 2, 0);
-		char* buffer[64];
-		tablero_to_char(buffer, tablero);
-		printf("%s\n", buffer);
+		printf("Puntaje 1 = %d\n", puntaje(tablero, 0));
+		printf("Puntaje 2 = %d\n", puntaje(tablero, 1));
 		destroy_tablero(tablero);
 	    return 1;
 	}
@@ -74,58 +78,87 @@ int main(int argc, char *argv[])
 	Client** clients = initializeServer(IP, PORT);
 	scores(clients);
 	int start_player = whos_first(clients);
-	Tablero* tablero = tablero_init();
+	Tablero* tablero = tablero_init(start_player);
 	print_tablero(tablero);
 	int j = 0;
-	while(j < 2){  // Número de rondas. Cambiar a True para simular juego completo
-		while(true){
-			board_state(clients[start_player], tablero);
-			Package* move_package = receiveMessage(clients[start_player] -> socket);
-			//printf("Posiciones inicio %s |\n", move_package -> payload);
-			if (move_package -> ID == 19)
-			{
-				spread_message(clients[1 - start_player], move_package);
-			}
-			else if (move_package -> ID == 17)
-			{
-				server_disconnect(clients);
-				free_package(move_package);
-				return 0;
-			}
-			else
-			{
-				if (jugar(tablero, move_package -> payload[1] - 49, move_package -> payload[0] - 65, move_package -> payload[3] - 49, move_package -> payload[2] - 65)){
-					ok_move(clients[start_player] -> socket);
+	int condicion = 1;
+	while(condicion)
+	{
+		while(j < 1){  // Número de rondas. Cambiar a True para simular juego completo
+			while(true){
+				board_state(clients[start_player], tablero);
+				Package* move_package = receiveMessage(clients[start_player] -> socket);
+				//printf("Posiciones inicio %s |\n", move_package -> payload);
+				if (move_package -> ID == 19)
+				{
+					spread_message(clients[1 - start_player], move_package);
 					free_package(move_package);
-					break;
+				}
+				else if (move_package -> ID == 17)
+				{
+					server_disconnect(clients);
+					free_package(move_package);
+					return 0;
 				}
 				else {
-					error_move(clients[start_player] -> socket);
-					free_package(move_package);
+					if (jugar(tablero, move_package -> payload[1] - 49, move_package -> payload[0] - 65, move_package -> payload[3] - 49, move_package -> payload[2] - 65)){
+						clients[start_player] -> puntaje = puntaje(tablero, start_player);
+						ok_move(clients[start_player] -> socket);
+						free_package(move_package);
+						break;
+					}
+					else {
+						error_move(clients[start_player] -> socket);
+						free_package(move_package);
+					}
 				}
 			}
+			if (ganador(tablero, start_player)) {
+				break;
+			}
+			scores(clients);
+			start_player = tablero -> turno;
+			j ++;
+		}
+
+
+		end_game(clients);
+		board_state(clients[0], tablero);
+		board_state(clients[1], tablero);
+		game_winner(clients, tablero);
+		Package* nuevo_package1 = receiveMessage(clients[0] -> socket);
+		Package* nuevo_package2 = receiveMessage(clients[1] -> socket);
+
+		if(((int)nuevo_package1->payload==1) && ((int)nuevo_package2->payload==1))
+		{
+			condicion=1;
+			destroy_tablero(tablero);
+			Tablero* tablero = tablero_init(start_player);
+			print_tablero(tablero);
+		}
+		else
+		{
+			condicion=0;
 		}
 		scores(clients);
-		start_player = (start_player + 1) % 2;
-		j ++;
-	}
+
+		}
+
+		server_disconnect(clients);
+
+		// Liberamos todo
+		destroy_tablero(tablero);
+		for (int i = 0; i < 2; ++i)
+		{
+			free_client(clients[i]);
+		}
+		free(clients);
 
 
-	end_game(clients);
+		//while(true)
+		//{
 
-	// Liberamos todo
-	destroy_tablero(tablero);
-	for (int i = 0; i < 2; ++i)
-	{
-		free_client(clients[i]);
-	}
-	free(clients);
-
-
-	//while(true)
-	//{
-
-	//}
+		//}
 
 
 	return 0;

@@ -8,17 +8,15 @@
 #include <netinet/in.h>
 #include "math.h"
 #include "estructuras.h"
-#include "connection_established.h"
+#include "error_bad_package.h"
 #include "util.h"
 
-void connection_established(int socket){
-	//Package *package = package_init(2, 0);
+void error_bad_package(int socket){
+
 	char package[2];
-	package[0] = 2;
+	package[0] = 18;
 	package[1] = 0;
 	sendMessage(socket, package);
 
 	//send(socket, package, 2, 0);
-
- 	//send_package(package, tipo);
 };

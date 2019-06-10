@@ -9,11 +9,14 @@
 #include "math.h"
 #include "estructuras.h"
 #include "start_game.h"
+#include "util.h"
 
 void start_game(int socket){
 
 	char package[2];
 	package[0] = 6;
 	package[1] = 0;
-	send(socket, package, 2, 0);
+
+	sendMessage(socket, package);
+	//send(socket, package, 2, 0);
 };
