@@ -92,36 +92,40 @@ int main(int argc, char *argv[])
 		else if (package -> ID == 9)
 		{
 			print_tablero(package -> payload, ID);
-			if (!terminado) {
-				printf("¿Qué desea hacer?\n");
-				printf("1 Jugar\n");
-				printf("2 Enviar mensaje\n");
-				printf("3 Desconectarse\n");
-				printf("Ingrese el número de su opción: \n");
-				int input;
-				scanf("%d", &input);
-				printf("\n");
-				printf("   Ingresaste: %i\n", input);
-				if (input == 1)
-				{
-					send_move(socket);
-				}
-				else if (input == 2)
-				{
-					getchar();
-					char message[256];
-					printf("\nIngresa tu mensaje: ");
-					//scanf("%s", message);
-					fgets(message, 256, stdin);
-					//scanf ("%[^\n]%*c", message);
-
+			while(true){
+				if (!terminado) {
+					printf("¿Qué desea hacer?\n");
+					printf("1 Jugar\n");
+					printf("2 Enviar mensaje\n");
+					printf("3 Desconectarse\n");
+					printf("Ingrese el número de su opción: \n");
+					int input;
+					scanf("%d", &input);
 					printf("\n");
-					printf("   Ingresaste el mensaje: %s\n", message);
-					send_message(socket, message);
-				}
-				else if (input == 3)
-				{
-					client_disconnect(socket);
+					printf("   Ingresaste: %i\n", input);
+					if (input == 1)
+					{
+						send_move(socket);
+						break;
+					}
+					else if (input == 2)
+					{
+						getchar();
+						char message[256];
+						printf("\nIngresa tu mensaje: ");
+						//scanf("%s", message);
+						fgets(message, 256, stdin);
+						//scanf ("%[^\n]%*c", message);
+
+						printf("\n");
+						printf("   Ingresaste el mensaje: %s\n", message);
+						send_message(socket, message);
+					}
+					else if (input == 3)
+					{
+						client_disconnect(socket);
+						break;
+					}
 				}
 			}
 		}

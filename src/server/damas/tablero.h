@@ -4,6 +4,7 @@ typedef struct Tablero
 {
 	char ** celdas;
 	int turno;
+	int start;
 } Tablero;
 
 Tablero* tablero_init(int start_player);
