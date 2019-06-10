@@ -1,3 +1,4 @@
+#include <stdint.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -12,7 +13,7 @@ void answer_new_game(int socket, uint8_t respuesta){
 	// Definimos el ID, el payloadSize y copiamos el mensaje
 	package[0] = 16;
 	package[1] = 1;
-  package[2] = respuesta;
+  	package[2] = respuesta;
 
 	// Imprimamos el paquete para ver cómo quedó
 	print_package(package);

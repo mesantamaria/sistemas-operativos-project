@@ -10,6 +10,7 @@
 #include "estructuras.h"
 #include "server_disconnect.h"
 #include "util.h"
+#include "log.h"
 
 void server_disconnect(Client** clients){
 	//Package *package = package_init(2, 0);
@@ -20,12 +21,7 @@ void server_disconnect(Client** clients){
 
 	//send(clients[0] -> socket, package, 2, 0);
 
-	char package2[2];
-	package2[0] = 17;
-	package2[1] = 0;
 	sendMessage(clients[1] -> socket, package);
 
-	//send(clients[1] -> socket, package2, 2, 0);
-
- 	//send_package(package, tipo);
+	//send(clients[1] -> socket, package, 2, 0);
 };

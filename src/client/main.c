@@ -108,7 +108,16 @@ int main(int argc, char *argv[])
 				}
 				else if (input == 2)
 				{
-					send_message(socket);
+					getchar();
+					char message[256];
+					printf("\nIngresa tu mensaje: ");
+					//scanf("%s", message);
+					fgets(message, 256, stdin);
+					//scanf ("%[^\n]%*c", message);
+
+					printf("\n");
+					printf("   Ingresaste el mensaje: %s\n", message);
+					send_message(socket, message);
 				}
 				else if (input == 3)
 				{
@@ -162,7 +171,7 @@ int main(int argc, char *argv[])
 		else if (package -> ID == 17)
 		{
 			printf("Juego desconectado\n");
-			//free_package(package);
+			free_package(package);
 			break;
 		}
 		else if (package -> ID == 18)

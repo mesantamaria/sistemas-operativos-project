@@ -42,6 +42,7 @@ Package* receiveMessage(int socket){
     return package;
 }
 
+
 void sendMessage(int socket, char* package){
     // Obtenemos el largo del payload para saber qué tamaño tiene el paquete y cuántos bytes debe enviar mi socket
     int payloadSize = package[1];
