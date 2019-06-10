@@ -106,6 +106,7 @@ void sendMessage(int socket, char* package){
     Package* p = package_init(package[0], package[1]);
     strcpy(p -> payload, package + 2);
     log_event(p);
+    free(p -> payload);
     free(p);
     // Obtenemos el largo del payload para saber qué tamaño tiene el paquete y cuántos bytes debe enviar mi socket
     int payloadSize = package[1];

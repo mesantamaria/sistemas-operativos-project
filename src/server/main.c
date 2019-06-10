@@ -148,21 +148,21 @@ int main(int argc, char *argv[])
 
 	}
 
-		server_disconnect(clients);
+	server_disconnect(clients);
 
-		// Liberamos todo
-		destroy_tablero(tablero);
-		for (int i = 0; i < 2; ++i)
-		{
-			free_client(clients[i]);
-		}
-		free(clients);
+	// Liberamos todo
+	destroy_tablero(tablero);
+	for (int i = 0; i < 2; ++i)
+	{
+		free_client(clients[i]);
+	}
+	free(clients);
 
 
-		//while(true)
-		//{
+	//while(true)
+	//{
 
-		//}
+	//}
 
 
 	return 0;
