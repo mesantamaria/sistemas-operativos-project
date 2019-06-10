@@ -20,6 +20,7 @@
 #include "spread_message.h"
 #include "log.h"
 #include "server_disconnect.h"
+#include "game_winner.h"
 
 
 

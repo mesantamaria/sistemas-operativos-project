@@ -11,7 +11,7 @@
 #include "send_move.h"
 #include "send_message.h"
 #include "client_disconnect.h"
-
+#include "answer_new_game.h"
 
 
 
@@ -144,6 +144,21 @@ int main(int argc, char *argv[])
 			}
 			free_package(package);
 		}
+		else if (package -> ID == 15)
+		{
+
+			printf("¿Deseas jugar nuevamente?\n");
+			printf("1 Si\n");
+			printf("0 No\n");
+
+			printf("Ingrese el número de su opción: \n");
+			int input;
+			scanf("%d", &input);
+			printf("\n");
+			printf("   Ingresaste: %i\n", input);
+			answer_new_game(socket, input);
+		}
+
 		else if (package -> ID == 17)
 		{
 			printf("Juego desconectado\n");
