@@ -73,6 +73,8 @@ int main(int argc, char *argv[])
 	free_package(conexion_exitosa);
 
 	int terminado = 0;
+
+
 	int ID;
 	while(true){
 		Package* package = receiveMessage(socket);
@@ -145,9 +147,15 @@ int main(int argc, char *argv[])
 		else if (package -> ID == 17)
 		{
 			printf("Juego desconectado\n");
-			free_package(package);
+			//free_package(package);
 			break;
 		}
+		else if (package -> ID == 18)
+		{
+			printf("El package enviado estaba corrupto\n");
+			//free_package(package);
+		}
+
 		else if (package -> ID == 20)
 		{
 			printf("Mensaje de tu oponente:\n");
