@@ -4,8 +4,6 @@
 *.synctex
 *.out
 
-client
-server
 *.mp3
 *.txt
 *.gif
