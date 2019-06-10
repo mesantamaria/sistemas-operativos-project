@@ -19,6 +19,7 @@
 #include "error_move.h"
 #include "spread_message.h"
 #include "log.h"
+#include "server_disconnect.h"
 
 
 
@@ -84,6 +85,10 @@ int main(int argc, char *argv[])
 			if (move_package -> ID == 19)
 			{
 				spread_message(clients[1 - start_player], move_package);
+			}
+			else if (move_package -> ID == 17)
+			{
+				server_disconnect(clients);
 			}
 			else {
 				if (jugar(tablero, move_package -> payload[1] - 49, move_package -> payload[0] - 65, move_package -> payload[3] - 49, move_package -> payload[2] - 65)){

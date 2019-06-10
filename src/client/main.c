@@ -10,6 +10,7 @@
 #include "start_connection.h"
 #include "send_move.h"
 #include "send_message.h"
+#include "client_disconnect.h"
 
 
 
@@ -92,6 +93,7 @@ int main(int argc, char *argv[])
 			printf("¿Qué desea hacer?\n");
 			printf("1 Jugar\n");
 			printf("2 Enviar mensaje\n");
+			printf("3 Desconectarse\n");
 			printf("Ingrese el número de su opción: \n");
 			int input;
 			scanf("%d", &input);
@@ -104,6 +106,10 @@ int main(int argc, char *argv[])
 			else if (input == 2)
 			{
 				send_message(socket);
+			}
+			else if (input == 3)
+			{
+				client_disconnect(socket);
 			}
 		}
 		else if (package -> ID == 11)
@@ -120,6 +126,12 @@ int main(int argc, char *argv[])
 			free_package(package);
 			break;
 		}
+		else if (package -> ID == 17)
+		{
+			printf("Juego desconectado\n");
+			free_package(package);
+			break;
+		}
 		else if (package -> ID == 20)
 		{
 			printf("Mensaje de tu oponente:\n");
@@ -127,7 +139,6 @@ int main(int argc, char *argv[])
 		}
 		free_package(package);
 		
-
 	}
 
 	return 0;
