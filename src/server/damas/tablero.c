@@ -46,3 +46,30 @@ void tablero_to_char(char* buffer, Tablero* tablero) {
 		strcat(buffer, tablero -> celdas[i]);
 	}
 }
+
+int puntaje(Tablero* tablero, int jugador) {
+	int puntaje = 12;
+	// Se cuentan los del enemigo asi que se ve al reves
+	char ficha = jugador ? 'o' : 'x';
+	char dama = jugador ? 'O' : 'X';
+	char celda;
+	int i, j;
+	for (i = 0; i < 8; i++) {
+		for (j = 0; j < 8; j++) {
+			celda = tablero -> celdas[i][j];
+			if (celda == ficha || celda == dama) {
+				puntaje--;
+			}
+		}
+	}
+	return puntaje;
+}
+
+int ganador(Tablero* tablero, int jugador) {
+	if (puntaje(tablero, jugador) == 12) {
+		return 1;
+	}
+	else {
+		return 0;
+	}
+}

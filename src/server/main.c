@@ -29,14 +29,17 @@ int main(int argc, char *argv[])
 	if (argc < 5)
 	{
 	    printf("Modo de uso: ./server -i <ip_address> -p <tcp-port> -l\n");
-		Tablero* tablero = tablero_init();
+		Tablero* tablero = tablero_init(0);
 		print_tablero(tablero);
 		jugar(tablero, 5, 1, 4, 2);
+		printf("Puntaje 1 = %d\n", puntaje(tablero, 0));
+		printf("Puntaje 2 = %d\n", puntaje(tablero, 1));
 		jugar(tablero, 2, 0, 3, 1);
+		printf("Puntaje 1 = %d\n", puntaje(tablero, 0));
+		printf("Puntaje 2 = %d\n", puntaje(tablero, 1));
 		jugar(tablero, 4, 2, 2, 0);
-		char* buffer[64];
-		tablero_to_char(buffer, tablero);
-		printf("%s\n", buffer);
+		printf("Puntaje 1 = %d\n", puntaje(tablero, 0));
+		printf("Puntaje 2 = %d\n", puntaje(tablero, 1));
 		destroy_tablero(tablero);
 	    return 1;
 	}
@@ -77,7 +80,7 @@ int main(int argc, char *argv[])
 	Tablero* tablero = tablero_init(start_player);
 	print_tablero(tablero);
 	int j = 0;
-	while(j < 2){  // Número de rondas. Cambiar a True para simular juego completo
+	while(j < 1){  // Número de rondas. Cambiar a True para simular juego completo
 		while(true){
 			board_state(clients[start_player], tablero);
 			Package* move_package = receiveMessage(clients[start_player] -> socket);
@@ -92,6 +95,7 @@ int main(int argc, char *argv[])
 			}
 			else {
 				if (jugar(tablero, move_package -> payload[1] - 49, move_package -> payload[0] - 65, move_package -> payload[3] - 49, move_package -> payload[2] - 65)){
+					clients[start_player] -> puntaje = puntaje(tablero, start_player);
 					ok_move(clients[start_player] -> socket);
 					free_package(move_package);
 					break;
@@ -102,6 +106,9 @@ int main(int argc, char *argv[])
 				}
 			}
 		}
+		if (ganador(tablero, start_player)) {
+			break;
+		}
 		scores(clients);
 		start_player = tablero -> turno;
 		j ++;
@@ -109,6 +116,11 @@ int main(int argc, char *argv[])
 
 
 	end_game(clients);
+	board_state(clients[0], tablero);
+	board_state(clients[1], tablero);
+	game_winner(clients, tablero);
+	scores(clients);
+	server_disconnect(clients);
 
 	// Liberamos todo
 	destroy_tablero(tablero);
