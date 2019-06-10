@@ -62,8 +62,9 @@ int main(int argc, char *argv[])
     }
 
 	printf("I'm the Server\n");
-	printf("LOG = %d\n", LOG);
-	log_event("INICIO SERVIDOR", "");
+	Package* inicio = package_init(-1, 0);
+	log_event(inicio);
+	free_package(inicio);
 
 	//char* IP = argv[2];
 	//int PORT = atoi(argv[4]);
