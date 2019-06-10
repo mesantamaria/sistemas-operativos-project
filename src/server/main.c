@@ -41,6 +41,9 @@ int main(int argc, char *argv[])
 		jugar(tablero, 4, 2, 2, 0);
 		printf("Puntaje 1 = %d\n", puntaje(tablero, 0));
 		printf("Puntaje 2 = %d\n", puntaje(tablero, 1));
+		char respuesta[4];
+		scanf("%s", &respuesta);
+		jugar(tablero, respuesta[1] - 49, respuesta[0] - 65, respuesta[3] - 49, respuesta[2] - 65);
 		destroy_tablero(tablero);
 	    return 1;
 	}
@@ -85,7 +88,7 @@ int main(int argc, char *argv[])
 	int disconnected = 0;
 	while(condicion)
 	{
-		while(j < 1){  // Número de rondas. Cambiar a True para simular juego completo
+		while(true){  // Número de rondas. Cambiar a True para simular juego completo
 			while(true){
 				board_state(clients[start_player], tablero);
 				Package* move_package = receiveMessage(clients[start_player] -> socket);

@@ -7,7 +7,8 @@
 
 
 void send_move(int socket){
-	char package[6];
+	//char package[6];
+	char* package = (char*) malloc(7);
 	package[0] = 10;
 	package[1] = 4;
 	char posicion_inicio[2];
@@ -21,5 +22,6 @@ void send_move(int socket){
 	strcpy(&package[2], posicion_inicio);
 	strcpy(&package[4], posicion_destino);
 	sendMessage(socket, package);
+	free(package);
 
 }
