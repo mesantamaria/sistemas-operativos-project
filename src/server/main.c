@@ -1,4 +1,4 @@
-#include <unistd.h>  
+#include <unistd.h>
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
@@ -18,6 +18,7 @@
 #include "end_game.h"
 #include "error_move.h"
 #include "spread_message.h"
+#include "log.h"
 
 
 
@@ -41,11 +42,12 @@ int main(int argc, char *argv[])
 
 	int opt;
 	char* IP;
-	int PORT;  
-    while((opt = getopt(argc, argv, "i:p:l")) != -1)  
-    {  
-        switch(opt)  
-        {  
+	int PORT;
+	LOG = 0;
+    while((opt = getopt(argc, argv, "i:p:l")) != -1)
+    {
+        switch(opt)
+        {
             case 'i':
             	IP = optarg;
             	break;
@@ -53,13 +55,15 @@ int main(int argc, char *argv[])
             	PORT = atoi(optarg);
             	break;
             case 'l':
-            	printf("True\n");  
+            	LOG = 1;
             	break;
-        }  
-    }  
-    
+        }
+    }
+
 	printf("I'm the Server\n");
-	
+	printf("LOG = %d\n", LOG);
+	log_event("INICIO SERVIDOR", "");
+
 	//char* IP = argv[2];
 	//int PORT = atoi(argv[4]);
 	printf("%s %d\n", IP, PORT);
@@ -79,6 +83,11 @@ int main(int argc, char *argv[])
 			if (move_package -> ID == 19)
 			{
 				spread_message(clients[1 - start_player], move_package);
+
+			if (jugar(tablero, move_package -> payload[1] - 49, move_package -> payload[0] - 65, move_package -> payload[3] - 49, move_package -> payload[2] - 65)){
+				ok_move(clients[start_player] -> socket);
+				free_package(move_package);
+				break;
 			}
 			else
 			{
@@ -97,7 +106,7 @@ int main(int argc, char *argv[])
 		start_player = (start_player + 1) % 2;
 		j ++;
 	}
-	
+
 
 	end_game(clients);
 
