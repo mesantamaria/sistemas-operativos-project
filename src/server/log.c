@@ -17,16 +17,16 @@ void log_event(Package* package) {
     	timestamp[strlen(timestamp) - 1] = 0;
     	if (package -> ID != -1) {
 	    	char * nombre_paquete = get_package_name(package -> ID);
+			fprintf(f, "%s: %s", timestamp, nombre_paquete);
 	    	if (package -> payload_size > 0) {
-				fprintf(f, "%s: %s - ", timestamp, nombre_paquete);
-				fprintf(f, "Payload Size: %d - Content: ", package -> payload_size);
 				char ID = package -> ID;
+				fprintf(f, " - ID: %d - Payload Size: %d - Content: ", ID, package -> payload_size);
 				if (ID == 3 || ID == 4 || ID == 5 || ID == 9 || ID == 10 || ID == 19 || ID == 20) {
 					fprintf(f, "%s\n", package -> payload);
 				}
 				else {
 					for (int i = 0; i < package -> payload_size; i++) {
-						fprintf(f, "%d", package -> payload[i]);
+						fprintf(f, "%d", (int) package -> payload[i]);
 					}
 					fprintf(f, "\n");
 				}
