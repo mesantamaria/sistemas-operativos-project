@@ -73,7 +73,7 @@ int main(int argc, char *argv[])
 	Client** clients = initializeServer(IP, PORT);
 	scores(clients);
 	int start_player = whos_first(clients);
-	Tablero* tablero = tablero_init();
+	Tablero* tablero = tablero_init(start_player);
 	print_tablero(tablero);
 	int j = 0;
 	while(j < 2){  // Número de rondas. Cambiar a True para simular juego completo
@@ -84,14 +84,8 @@ int main(int argc, char *argv[])
 			if (move_package -> ID == 19)
 			{
 				spread_message(clients[1 - start_player], move_package);
-
-			if (jugar(tablero, move_package -> payload[1] - 49, move_package -> payload[0] - 65, move_package -> payload[3] - 49, move_package -> payload[2] - 65)){
-				ok_move(clients[start_player] -> socket);
-				free_package(move_package);
-				break;
 			}
-			else
-			{
+			else {
 				if (jugar(tablero, move_package -> payload[1] - 49, move_package -> payload[0] - 65, move_package -> payload[3] - 49, move_package -> payload[2] - 65)){
 					ok_move(clients[start_player] -> socket);
 					free_package(move_package);
@@ -104,7 +98,7 @@ int main(int argc, char *argv[])
 			}
 		}
 		scores(clients);
-		start_player = (start_player + 1) % 2;
+		start_player = tablero -> turno;
 		j ++;
 	}
 

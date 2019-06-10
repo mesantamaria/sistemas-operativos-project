@@ -4,10 +4,10 @@
 #include "tablero.h"
 
 
-Tablero* tablero_init() {
+Tablero* tablero_init(int start_player) {
 	Tablero* t = malloc(sizeof(Tablero));
 	t -> celdas = malloc(sizeof(char*) * 8);
-	t -> turno = 0;
+	t -> turno = start_player;
 	int i, j;
 	char celda, ficha;
 	int negra = 1;

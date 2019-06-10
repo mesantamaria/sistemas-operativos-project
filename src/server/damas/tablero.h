@@ -6,7 +6,7 @@ typedef struct Tablero
 	int turno;
 } Tablero;
 
-Tablero* tablero_init();
+Tablero* tablero_init(int start_player);
 void destroy_tablero();
 char color(int i, int j);
 void tablero_to_char(char* buffer, Tablero* tablero);
