@@ -3,13 +3,7 @@
 *.aux
 *.synctex
 *.out
-<<<<<<< HEAD
 
-<<<<<<< HEAD
-=======
->>>>>>> b5e05eea2c70c272e9c1845e21b29d77a70e2aa5
-=======
->>>>>>> gitignore
 *.mp3
 *.txt
 *.gif
