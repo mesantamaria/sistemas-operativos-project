@@ -16,7 +16,6 @@ void ask_nickname(int socket){
 	package[0] = 3;
 	package[1] = msgLen;
 	strcpy(&package[2], input); //debería copiar hasta encontrar un caracter nulo, osea los msgLen caracteres
-
 	// Imprimamos el paquete para ver cómo quedó
 	sendMessage(socket, package);
 };

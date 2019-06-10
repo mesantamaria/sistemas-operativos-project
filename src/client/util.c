@@ -36,7 +36,7 @@ Package* receiveMessage(int socket){
         package -> payload[payloadSize] = '\0';
         printf("The Message is: %s\n", package -> payload);
     }
-    printf("#############################\n");  
+    printf("#############################\n");
 
     // Aqui se las ingenian para ver como retornan todo. Puden retornar el paquete y separarlo afuera, o retornar una struct.
     return package;
@@ -75,11 +75,15 @@ void print_package(char * package){
 }
 
 void print_tablero(char* buffer, int ID){
-    int i, j;
+    int i, j, j_real;
     char* letras = "ABCDEFGH";
     printf("   ");
     for (j = 0; j < 8; j++) {
-        printf("| %c ", letras[j]);
+        if (ID == 2) {
+            j_real = 7 - j;
+        }
+        else j_real = j;
+        printf("| %c ", letras[j_real]);
     }
     printf("|\n---");
     for (j = 0; j < 8; j++) {
@@ -95,7 +99,11 @@ void print_tablero(char* buffer, int ID){
         else i = counter;
         printf(" %d ", i+1);
         for (j = 0; j < 8; j++) {
-            printf("| %c ", to_unicode(buffer[j +  8*i]));
+            if (ID == 2) {
+                j_real = 7 - j;
+            }
+            else j_real = j;
+            printf("| %c ", to_unicode(buffer[j_real +  8*i]));
         }
         printf("| %d \n---", i+1);
         for (j = 0; j < 8; j++) {
@@ -105,7 +113,11 @@ void print_tablero(char* buffer, int ID){
     }
     printf("   ");
     for (j = 0; j < 8; j++) {
-        printf("| %c ", letras[j]);
+        if (ID == 2) {
+            j_real = 7 - j;
+        }
+        else j_real = j;
+        printf("| %c ", letras[j_real]);
     }
     printf("|\n\n");
 }

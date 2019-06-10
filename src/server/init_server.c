@@ -29,7 +29,7 @@ Client** initializeServer(char* ip, int port){
 	welcomeSocket = socket(PF_INET, SOCK_STREAM, 0);
 
   // Pueden buscar como configurar el socket para que libere el puerto una vez que se termine el programa
-  
+
 	/*---- Configuración de la estructura del servidor ----*/
 	/* Address family = Internet */
 	serverAddr.sin_family = AF_INET;
@@ -83,7 +83,7 @@ Client** initializeServer(char* ip, int port){
  	clients[1] = client_init(sockets[1], nickname_2 -> payload);
  	free_package(nickname_1);
  	free_package(nickname_2);
- 	
+
 
  	opponent_found(clients);
 

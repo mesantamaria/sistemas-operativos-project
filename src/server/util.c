@@ -8,6 +8,8 @@
 #include <netinet/in.h>
 #include "math.h"
 #include "util.h"
+#include "log.h"
+#include "estructuras.h"
 
 
 Package* receiveMessage(int socket){
@@ -35,13 +37,20 @@ Package* receiveMessage(int socket){
         package -> payload[payloadSize] = '\0';
         printf("The Message is: %s\n", package -> payload);
     }
+    // Logueamos
+    log_event(package);
     printf("#############################\n");
+
 
     // Aqui se las ingenian para ver como retornan todo. Puden retornar el paquete y separarlo afuera, o retornar una struct.
     return package;
 }
 
 void sendMessage(int socket, char* package){
+    // Logueamos
+    Package* p = package_init(package[0], package[1]);
+    strcpy(p -> payload, package + 2);
+    log_event(p);
     // Obtenemos el largo del payload para saber qué tamaño tiene el paquete y cuántos bytes debe enviar mi socket
     int payloadSize = package[1];
     send(socket, package, 2 + payloadSize, 0);
