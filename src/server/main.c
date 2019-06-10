@@ -82,6 +82,7 @@ int main(int argc, char *argv[])
 	print_tablero(tablero);
 	int j = 0;
 	int condicion = 1;
+	int disconnected = 0;
 	while(condicion)
 	{
 		while(j < 1){  // Número de rondas. Cambiar a True para simular juego completo
@@ -96,9 +97,9 @@ int main(int argc, char *argv[])
 				}
 				else if (move_package -> ID == 17)
 				{
-					server_disconnect(clients);
+					disconnected = 1;
 					free_package(move_package);
-					return 0;
+					break;
 				}
 				else {
 					if (jugar(tablero, move_package -> payload[1] - 49, move_package -> payload[0] - 65, move_package -> payload[3] - 49, move_package -> payload[2] - 65)){
@@ -113,14 +114,17 @@ int main(int argc, char *argv[])
 					}
 				}
 			}
-			if (ganador(tablero, start_player)) {
+			if (ganador(tablero, start_player) || disconnected == 1) {
 				break;
 			}
 			scores(clients);
 			start_player = tablero -> turno;
 			j ++;
 		}
-
+		if (disconnected == 1)
+		{
+			break;
+		}
 
 		end_game(clients);
 		board_state(clients[0], tablero);
@@ -142,7 +146,7 @@ int main(int argc, char *argv[])
 		}
 		scores(clients);
 
-		}
+	}
 
 		server_disconnect(clients);
 
