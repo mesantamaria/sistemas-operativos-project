@@ -93,7 +93,7 @@ int main(int argc, char *argv[])
 			printf("¿Qué desea hacer?\n");
 			printf("1 Jugar\n");
 			printf("2 Enviar mensaje\n");
-			printf("3 Desconectarse (El que abandona, no tiene premio)\n");
+			printf("3 Desconectarse\n");
 			printf("Ingrese el número de su opción: \n");
 			int input;
 			scanf("%d", &input);
