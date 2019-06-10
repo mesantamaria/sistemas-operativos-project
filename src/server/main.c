@@ -81,61 +81,81 @@ int main(int argc, char *argv[])
 	Tablero* tablero = tablero_init(start_player);
 	print_tablero(tablero);
 	int j = 0;
-	while(j < 1){  // Número de rondas. Cambiar a True para simular juego completo
-		while(true){
-			board_state(clients[start_player], tablero);
-			Package* move_package = receiveMessage(clients[start_player] -> socket);
-			//printf("Posiciones inicio %s |\n", move_package -> payload);
-			if (move_package -> ID == 19)
-			{
-				spread_message(clients[1 - start_player], move_package);
-			}
-			else if (move_package -> ID == 17)
-			{
-				server_disconnect(clients);
-			}
-			else {
-				if (jugar(tablero, move_package -> payload[1] - 49, move_package -> payload[0] - 65, move_package -> payload[3] - 49, move_package -> payload[2] - 65)){
-					clients[start_player] -> puntaje = puntaje(tablero, start_player);
-					ok_move(clients[start_player] -> socket);
-					free_package(move_package);
-					break;
+	int condicion = 1;
+	while(condicion)
+	{
+		while(j < 1){  // Número de rondas. Cambiar a True para simular juego completo
+			while(true){
+				board_state(clients[start_player], tablero);
+				Package* move_package = receiveMessage(clients[start_player] -> socket);
+				//printf("Posiciones inicio %s |\n", move_package -> payload);
+				if (move_package -> ID == 19)
+				{
+					spread_message(clients[1 - start_player], move_package);
+				}
+				else if (move_package -> ID == 17)
+				{
+					server_disconnect(clients);
 				}
 				else {
-					error_move(clients[start_player] -> socket);
-					free_package(move_package);
+					if (jugar(tablero, move_package -> payload[1] - 49, move_package -> payload[0] - 65, move_package -> payload[3] - 49, move_package -> payload[2] - 65)){
+						clients[start_player] -> puntaje = puntaje(tablero, start_player);
+						ok_move(clients[start_player] -> socket);
+						free_package(move_package);
+						break;
+					}
+					else {
+						error_move(clients[start_player] -> socket);
+						free_package(move_package);
+					}
 				}
 			}
+			if (ganador(tablero, start_player)) {
+				break;
+			}
+			scores(clients);
+			start_player = tablero -> turno;
+			j ++;
 		}
-		if (ganador(tablero, start_player)) {
-			break;
+
+
+		end_game(clients);
+		board_state(clients[0], tablero);
+		board_state(clients[1], tablero);
+		game_winner(clients, tablero);
+		Package* nuevo_package1 = receiveMessage(clients[0] -> socket);
+		Package* nuevo_package2 = receiveMessage(clients[1] -> socket);
+
+		if(((int)nuevo_package1->payload==1) && ((int)nuevo_package2->payload==1))
+		{
+			condicion=1;
+			destroy_tablero(tablero);
+			Tablero* tablero = tablero_init(start_player);
+			print_tablero(tablero);
+		}
+		else
+		{
+			condicion=0;
 		}
 		scores(clients);
-		start_player = tablero -> turno;
-		j ++;
-	}
+
+		}
+
+		server_disconnect(clients);
+
+		// Liberamos todo
+		destroy_tablero(tablero);
+		for (int i = 0; i < 2; ++i)
+		{
+			free_client(clients[i]);
+		}
+		free(clients);
 
 
-	end_game(clients);
-	board_state(clients[0], tablero);
-	board_state(clients[1], tablero);
-	game_winner(clients, tablero);
-	scores(clients);
-	server_disconnect(clients);
+		//while(true)
+		//{
 
-	// Liberamos todo
-	destroy_tablero(tablero);
-	for (int i = 0; i < 2; ++i)
-	{
-		free_client(clients[i]);
-	}
-	free(clients);
-
-
-	//while(true)
-	//{
-
-	//}
+		//}
 
 
 	return 0;
