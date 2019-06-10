@@ -89,6 +89,8 @@ int main(int argc, char *argv[])
 			else if (move_package -> ID == 17)
 			{
 				server_disconnect(clients);
+				free_package(move_package);
+				return 0;
 			}
 			else
 			{

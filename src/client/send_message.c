@@ -14,11 +14,14 @@ void send_message(int socket){
 	//send_package(package,"s");
 	*/
 
-	char input[255]; // definimos un arreglo estúpidamente grande
+	char input[256]; // definimos un arreglo estúpidamente grande
 	printf("\nEnter your message: ");
-	scanf("%s", input);
+	//scanf("%s", input);
+	fgets(input, 256, stdin);
+	//scanf ("%[^\n]%*c", input);
+
 	printf("\n");
-	printf("   Ingresaste: %s\n", input);
+	printf("   Ingresaste el mensaje: %s\n", input);
 
 	// Calculamos el largo del mensaje ingresado por el humano
 	int msgLen = calculate_length(input); //no se debería enviar en el payload el caracter nulo al final del input. Ojo que al imprimir el string sin este caracter les aparecerá un simbolo raro al final

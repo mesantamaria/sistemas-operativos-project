@@ -6,7 +6,7 @@
 
 void spread_message(Client* client, Package* message_package){
 
-	char input[255];
+	char input[256];
 	strcpy(input, message_package -> payload);
 	// Calculamos el largo del mensaje ingresado por el humano
 	int msgLen = calculate_length(input); //no se debería enviar en el payload el caracter nulo al final del input. Ojo que al imprimir el string sin este caracter les aparecerá un simbolo raro al final
